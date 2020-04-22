@@ -1,0 +1,6 @@
+15:51:17 **** Incremental Build of configuration Debug for project 100_moteur_p4 ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+
+15:51:17 Build Finished (took 528ms)
+

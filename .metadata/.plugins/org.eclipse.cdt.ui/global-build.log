@@ -1,0 +1,444 @@
+13:31:40 **** Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/__debug.d" -MT"src/__debug.o" -o "src/__debug.o" "../src/__debug.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/__leds_control.d" -MT"src/__leds_control.o" -o "src/__leds_control.o" "../src/__leds_control.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/display.d" -MT"src/display.o" -o "src/display.o" "../src/display.c"
+../src/app.c: In function ‘gp4_check_status’:
+../src/app.c:162:27: error: ‘row’ undeclared (first use in this function)
+  for (line = 0; line < 3; row++) {
+                           ^~~
+../src/app.c:162:27: note: each undeclared identifier is reported only once for each function it appears in
+src/subdir.mk:42: recipe for target 'src/app.o' failed
+make: *** [src/app.o] Error 1
+make: *** Waiting for unfinished jobs....
+13:32:07 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/fifo.d" -MT"src/fifo.o" -o "src/fifo.o" "../src/fifo.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/game_p4.d" -MT"src/game_p4.o" -o "src/game_p4.o" "../src/game_p4.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+../src/game_p4.c:30:1: warning: "/*" within comment [-Wcomment]
+ /************** affectation des struct de couleurs *******************
+  
+../src/game_p4.c:114:1: warning: "/*" within comment [-Wcomment]
+ /********************************** Fonction initialisation du jeu*****************************
+  
+../src/game_p4.c:125:1: warning: "/*" within comment [-Wcomment]
+ /************************************ Fonction Affichage de la matrice****************************
+  
+../src/game_p4.c:133:1: warning: "/*" within comment [-Wcomment]
+ /**************************************** Fonction changer de joueur**************************
+  
+../src/game_p4.c:145:1: warning: "/*" within comment [-Wcomment]
+ /***************************************** Fonction déplacement**************************
+  
+../src/game_p4.c:228:1: warning: "/*" within comment [-Wcomment]
+ /************** Fonction validation de la position top + chute du jeton dans la colonne****************
+  
+../src/game_p4.c:247:1: warning: "/*" within comment [-Wcomment]
+ /*************Fonct matrice affiche nombre**********************
+  
+../src/game_p4.c:252:23: warning: "/*" within comment [-Wcomment]
+    if (number == 1) { /*Ensemble de conditions pour afficher le chiffre 1
+                        
+../src/game_p4.c:259:23: warning: "/*" within comment [-Wcomment]
+    if (number == 2) { /*Ensemble de conditions pour afficher le chiffre 2*
+                        
+../src/game_p4.c:270:23: warning: "/*" within comment [-Wcomment]
+    if (number == 3) { /*Ensemble de conditions pour afficher le chiffre 3*
+                        
+../src/game_p4.c:283:23: warning: "/*" within comment [-Wcomment]
+    if (number == 4) { /*Ensemble de conditions pour afficher le chiffre 4*
+                        
+../src/game_p4.c:296:23: warning: "/*" within comment [-Wcomment]
+    if (number == 5) { /*Ensemble de conditions pour afficher le chiffre 5*
+                        
+../src/game_p4.c:311:23: warning: "/*" within comment [-Wcomment]
+    if (number == 6) { /*Ensemble de conditions pour afficher le chiffre 6*
+                        
+../src/game_p4.c:327:23: warning: "/*" within comment [-Wcomment]
+    if (number == 7) { /*Ensemble de conditions pour afficher le chiffre 7
+                        
+../src/game_p4.c:341:23: warning: "/*" within comment [-Wcomment]
+    if (number == 8) { /*Ensemble de conditions pour afficher le chiffre 8*
+                        
+../src/game_p4.c:357:23: warning: "/*" within comment [-Wcomment]
+    if (number == 9) { /*Ensemble de conditions pour afficher le chiffre 9*
+                        
+../src/game_p4.c:373:23: warning: "/*" within comment [-Wcomment]
+    if (number == 0) { /*Ensemble de conditions pour afficher le chiffre 0*
+                        
+../src/game_p4.c:395:1: warning: "/*" within comment [-Wcomment]
+ /************** Fonction de test*****************
+  
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/read.d" -MT"src/read.o" -o "src/read.o" "../src/read.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/threads.d" -MT"src/threads.o" -o "src/threads.o" "../src/threads.c"
+../src/threads.c:85:1: warning: "/*" within comment [-Wcomment]
+ /************************************************************************************************************
+  
+../src/threads.c:111:1: warning: "/*" within comment [-Wcomment]
+ /************************************************
+  
+../src/read.c: In function ‘read_button’:
+../src/read.c:49:27: warning: passing argument 2 of ‘SendMessage’ from incompatible pointer type [-Wincompatible-pointer-types]
+    SendMessage(LIST_READ, &request, sizeof(struct Element));
+                           ^
+In file included from ../src/read.c:14:0:
+../src/fifo.h:43:6: note: expected ‘data_msg * {aka union data_msg *}’ but argument is of type ‘struct Element *’
+ void SendMessage(List_Id liste, data_msg * message, int message_length);
+      ^~~~~~~~~~~
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+13:32:13 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+13:33:23 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+13:37:11 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+13:37:17 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+13:38:57 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+13:39:01 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+13:40:17 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+13:40:19 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+13:41:27 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+13:42:12 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+13:48:52 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+13:50:45 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+13:52:47 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+13:54:14 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+13:54:22 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+13:55:32 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+13:57:44 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+13:57:54 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+13:58:55 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+13:59:00 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+14:02:19 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+14:04:06 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+14:04:46 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+14:05:23 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+14:06:41 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+14:07:42 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+14:08:41 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+14:14:00 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+14:15:01 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+14:15:03 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+14:15:34 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+14:18:08 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+14:25:23 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+14:26:41 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+14:27:08 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+14:30:32 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:09:05 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:09:56 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:10:28 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:12:36 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:18:35 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+15:20:53 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+15:21:36 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+15:22:15 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+15:25:48 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+15:26:17 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:27:55 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+15:28:31 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:30:08 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+15:31:34 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:34:38 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+../src/app.c: In function ‘gp4_check_status’:
+../src/app.c:138:6: warning: unused variable ‘compteur’ [-Wunused-variable]
+  int compteur = 0, line = 0, col = 0;
+      ^~~~~~~~
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+15:52:45 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+../src/app.c: In function ‘is_win_horiz’:
+../src/app.c:137:7: error: ‘line’ undeclared (first use in this function); did you mean ‘live’?
+  for (line = 0; line < 7; line++) {
+       ^~~~
+       live
+../src/app.c:137:7: note: each undeclared identifier is reported only once for each function it appears in
+../src/app.c:138:8: error: ‘col’ undeclared (first use in this function); did you mean ‘bool’?
+   for (col = 0; col < 4; col++) {
+        ^~~
+        bool
+../src/app.c: In function ‘is_win_vert’:
+../src/app.c:162:7: error: ‘col’ undeclared (first use in this function); did you mean ‘bool’?
+  for (col = 0; col < 7; col++) {
+       ^~~
+       bool
+../src/app.c:163:8: error: ‘line’ undeclared (first use in this function); did you mean ‘live’?
+   for (line = 0; line < 3; line++) {
+        ^~~~
+        live
+../src/app.c: In function ‘application’:
+../src/app.c:271:18: warning: implicit declaration of function ‘gp4_check_status’ [-Wimplicit-function-declaration]
+    game_status = gp4_check_status();
+                  ^~~~~~~~~~~~~~~~
+../src/app.c:271:16: error: incompatible types when assigning to type ‘winner_t {aka struct <anonymous>}’ from type ‘int’
+src/subdir.mk:42: recipe for target 'src/app.o' failed
+    game_status = gp4_check_status();
+                ^
+../src/app.c: In function ‘is_win_horiz’:
+../src/app.c:159:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+make: *** [src/app.o] Error 1
+15:53:18 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+../src/app.c: In function ‘application’:
+../src/app.c:269:18: warning: implicit declaration of function ‘gp4_check_status’ [-Wimplicit-function-declaration]
+    game_status = gp4_check_status();
+                  ^~~~~~~~~~~~~~~~
+../src/app.c:269:16: error: incompatible types when assigning to type ‘winner_t {aka struct <anonymous>}’ from type ‘int’
+    game_status = gp4_check_status();
+                ^
+make: *** [src/app.o] Error 1
+src/subdir.mk:42: recipe for target 'src/app.o' failed
+15:53:42 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+15:54:39 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+15:55:04 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:56:07 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+15:56:28 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:57:30 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+../src/app.c: In function ‘gp4_check_status’:
+../src/app.c:137:21: error: incompatible types when assigning to type ‘status_t {aka enum <anonymous>}’ from type ‘void *’
+  game_status.status = NULL;
+                     ^
+src/subdir.mk:42: recipe for target 'src/app.o' failed
+make: *** [src/app.o] Error 1
+15:57:58 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+15:58:01 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+16:21:08 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/__debug.d" -MT"src/__debug.o" -o "src/__debug.o" "../src/__debug.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/__leds_control.d" -MT"src/__leds_control.o" -o "src/__leds_control.o" "../src/__leds_control.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/display.d" -MT"src/display.o" -o "src/display.o" "../src/display.c"
+../src/app.c: In function ‘application’:
+../src/app.c:262:9: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
+     if (game_status.status = live){ // si le jeu n'est NI NULL, NI GAGNE
+         ^~~~~~~~~~~
+../src/app.c:285:89: warning: ‘played_token.beg_position.c’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+     instructions_to_send.move_token.positions.beg_position.c = played_token.beg_position.c;
+                                                                ~~~~~~~~~~~~~~~~~~~~~~~~~^~
+../src/app.c:286:89: warning: ‘played_token.beg_position.l’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+     instructions_to_send.move_token.positions.beg_position.l = played_token.beg_position.l;
+                                                                ~~~~~~~~~~~~~~~~~~~~~~~~~^~
+../src/app.c:287:89: warning: ‘played_token.end_position.c’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+     instructions_to_send.move_token.positions.end_position.c = played_token.end_position.c;
+                                                                ~~~~~~~~~~~~~~~~~~~~~~~~~^~
+../src/app.c:288:89: warning: ‘played_token.end_position.l’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+     instructions_to_send.move_token.positions.end_position.l = played_token.end_position.l;
+                                                                ~~~~~~~~~~~~~~~~~~~~~~~~~^~
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/fifo.d" -MT"src/fifo.o" -o "src/fifo.o" "../src/fifo.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/read.d" -MT"src/read.o" -o "src/read.o" "../src/read.c"
+../src/read.c: In function ‘read_button’:
+../src/read.c:49:27: warning: passing argument 2 of ‘SendMessage’ from incompatible pointer type [-Wincompatible-pointer-types]
+    SendMessage(LIST_READ, &request, sizeof(struct Element));
+                           ^
+In file included from ../src/read.c:14:0:
+../src/fifo.h:43:6: note: expected ‘data_msg * {aka union data_msg *}’ but argument is of type ‘struct Element *’
+ void SendMessage(List_Id liste, data_msg * message, int message_length);
+      ^~~~~~~~~~~
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+16:21:27 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/__leds_control.d" -MT"src/__leds_control.o" -o "src/__leds_control.o" "../src/__leds_control.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/display.d" -MT"src/display.o" -o "src/display.o" "../src/display.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/fifo.d" -MT"src/fifo.o" -o "src/fifo.o" "../src/fifo.c"
+../src/app.c: In function ‘application’:
+../src/app.c:262:9: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
+     if (game_status.status = live){ // si le jeu n'est NI NULL, NI GAGNE
+         ^~~~~~~~~~~
+../src/app.c:285:89: warning: ‘played_token.beg_position.c’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+     instructions_to_send.move_token.positions.beg_position.c = played_token.beg_position.c;
+                                                                ~~~~~~~~~~~~~~~~~~~~~~~~~^~
+../src/app.c:286:89: warning: ‘played_token.beg_position.l’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+     instructions_to_send.move_token.positions.beg_position.l = played_token.beg_position.l;
+                                                                ~~~~~~~~~~~~~~~~~~~~~~~~~^~
+../src/app.c:287:89: warning: ‘played_token.end_position.c’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+     instructions_to_send.move_token.positions.end_position.c = played_token.end_position.c;
+                                                                ~~~~~~~~~~~~~~~~~~~~~~~~~^~
+../src/app.c:288:89: warning: ‘played_token.end_position.l’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+     instructions_to_send.move_token.positions.end_position.l = played_token.end_position.l;
+                                                                ~~~~~~~~~~~~~~~~~~~~~~~~~^~
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/read.d" -MT"src/read.o" -o "src/read.o" "../src/read.c"
+../src/read.c: In function ‘read_button’:
+../src/read.c:49:27: warning: passing argument 2 of ‘SendMessage’ from incompatible pointer type [-Wincompatible-pointer-types]
+    SendMessage(LIST_READ, &request, sizeof(struct Element));
+                           ^
+In file included from ../src/read.c:14:0:
+../src/fifo.h:43:6: note: expected ‘data_msg * {aka union data_msg *}’ but argument is of type ‘struct Element *’
+ void SendMessage(List_Id liste, data_msg * message, int message_length);
+      ^~~~~~~~~~~
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+16:24:16 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/__leds_control.d" -MT"src/__leds_control.o" -o "src/__leds_control.o" "../src/__leds_control.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/display.d" -MT"src/display.o" -o "src/display.o" "../src/display.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/fifo.d" -MT"src/fifo.o" -o "src/fifo.o" "../src/fifo.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+../src/app.c: In function ‘application’:
+../src/app.c:262:9: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
+     if (game_status.status = live){ // si le jeu n'est NI NULL, NI GAGNE
+         ^~~~~~~~~~~
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/read.d" -MT"src/read.o" -o "src/read.o" "../src/read.c"
+../src/read.c: In function ‘read_button’:
+../src/read.c:49:27: warning: passing argument 2 of ‘SendMessage’ from incompatible pointer type [-Wincompatible-pointer-types]
+    SendMessage(LIST_READ, &request, sizeof(struct Element));
+                           ^
+In file included from ../src/read.c:14:0:
+../src/fifo.h:43:6: note: expected ‘data_msg * {aka union data_msg *}’ but argument is of type ‘struct Element *’
+ void SendMessage(List_Id liste, data_msg * message, int message_length);
+      ^~~~~~~~~~~
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+16:28:38 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+../src/app.c: In function ‘application’:
+../src/app.c:262:9: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
+     if (game_status.status = live){ // si le jeu n'est NI NULL, NI GAGNE
+         ^~~~~~~~~~~
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread

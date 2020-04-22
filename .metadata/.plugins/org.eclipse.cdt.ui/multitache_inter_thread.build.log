@@ -1,0 +1,27 @@
+14:03:36 **** Incremental Build of configuration Debug for project multitache_inter_thread ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/fifo.d" -MT"src/fifo.o" -o "src/fifo.o" "../src/fifo.c"
+../src/fifo.c:25:5: error: conflicting types for ‘push_element’
+ int push_element(struct List *liste, int value) {
+     ^~~~~~~~~~~~
+In file included from ../src/fifo.c:3:0:
+../src/fifo.h:33:6: note: previous declaration of ‘push_element’ was here
+ void push_element(struct List* liste, int value);
+      ^~~~~~~~~~~~
+../src/fifo.c: In function ‘push_element’:
+../src/fifo.c:28:19: warning: comparison between pointer and integer
+  if (&liste->init == 1) {
+                   ^~
+../src/fifo.c: At top level:
+../src/fifo.c:54:5: error: conflicting types for ‘pop_element’
+src/subdir.mk:21: recipe for target 'src/fifo.o' failed
+ int pop_element(struct List* liste, int *value) {
+     ^~~~~~~~~~~
+In file included from ../src/fifo.c:3:0:
+../src/fifo.h:36:5: note: previous declaration of ‘pop_element’ was here
+ int pop_element(struct List* liste);
+     ^~~~~~~~~~~
+make: *** [src/fifo.o] Error 1
+
+14:03:37 Build Finished (took 515ms)
+

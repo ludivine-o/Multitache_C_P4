@@ -1,0 +1,7 @@
+09:23:29 **** Build of configuration Debug for project moteur_jeux_multitacheV2 ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+gcc  -o "moteur_jeux_multitacheV2"  ./src/main.o   
+
+09:23:30 Build Finished (took 515ms)
+

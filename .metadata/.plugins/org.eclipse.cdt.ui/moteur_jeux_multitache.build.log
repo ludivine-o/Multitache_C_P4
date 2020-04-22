@@ -1,0 +1,11 @@
+16:28:38 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+../src/app.c: In function ‘application’:
+../src/app.c:262:9: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
+     if (game_status.status = live){ // si le jeu n'est NI NULL, NI GAGNE
+         ^~~~~~~~~~~
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+
+16:28:38 Build Finished (took 619ms)
+

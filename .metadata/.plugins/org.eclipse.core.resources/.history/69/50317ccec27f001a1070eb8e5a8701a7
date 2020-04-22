@@ -1,0 +1,56 @@
+/*
+ * read.c
+ *
+ *  Created on: Apr 15, 2020
+ *      Author: ludivineo
+ */
+
+#include<stdio.h>
+#include<pthread.h>
+
+#include "__debug.h"
+#include "__leds_control.h"
+#include "app.h"
+#include "fifo.h"
+
+
+void *read_button(void*arg) {
+	debug_pr_fn(1,"read()entrée thread read");
+	char recept_tab[5]={0};
+	struct Element request;
+	while (1) {
+		debug_pr_fn(1,"read()entrée while thread read");
+		if (readbutton(recept_tab, 5) == LCRC_OK) {
+			printf("(%c %c %c %c); ", recept_tab[0], recept_tab[1],	recept_tab[2], recept_tab[3]);
+
+			//TODO : 15 Ajouter un octet à value pour définir le type de commande (value[0] = 1 ->type clavier
+			if (recept_tab[0] == 112) {
+				request.data.value[0] = input_KEY;
+				if (recept_tab[1] == 49) {
+					request.data.value[1] = PLAYER_1;
+				}
+				if (recept_tab[1] == 50) {
+					request.data.value[1] = PLAYER_2;
+				}
+				if (recept_tab[2] == 117 && recept_tab[3] == 100) { //vers le haut
+					printf("read_button():condition \"haut\"\n");
+					request.data.value[2] = UP;
+				}
+				if (recept_tab[2] == 114 && recept_tab[3] == 100) {	// vers le droite
+					printf("read_button():condition \"droite\" \n");
+					request.data.value[2] = RIGHT;
+				}
+				if (recept_tab[2] == 100 && recept_tab[3] == 100) { //vers le bas
+					printf("read_button():condition \"bas\"\n");
+					request.data.value[2] = DOWN;
+				}
+				if (recept_tab[2] == 108 && recept_tab[3] == 100) { //vers le gauche
+					printf("read_button():condition \"gauche\"\n");
+					request.data.value[2] = LEFT;
+				}
+			}
+			SendMessage(LIST_READ, &request, 3);
+		}
+	}
+	pthread_exit(NULL);
+}

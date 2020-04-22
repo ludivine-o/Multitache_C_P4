@@ -1,0 +1,217 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <pthread.h>
+#include <semaphore.h>
+
+#include"fifo.h"
+//#define MSGSIZE 10
+
+
+
+
+void init_list(struct List* liste){
+	liste->head = 0;
+	liste->tail = 0;
+	liste->init = 1;
+	liste->mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
+	sem_init(&liste->semaphore_list,0,0);
+}
+
+int push_element(struct List *liste, struct Element * value_to_push) {
+	if (liste->init == 1) {
+		struct Element* new_element = malloc(sizeof(struct Element)); 			//new_element contient l'adresse memoire des 8 octets crée
+		if (new_element) {            											 // si le malloc contient bien une adresse
+			pthread_mutex_lock(&liste->mutex);
+			memcpy(new_element, value_to_push, sizeof(struct Element));
+			new_element->next_p = 0;              								// adresse du prochain element
+			if (liste->head == 0) {                								// si la liste est vide
+				liste->tail = new_element; 										//on attache le nouvel element a la queue de liste
+				liste->head = new_element;         							  // on attache la tete aussi
+			} else {                    										//si la liste contient deja des elements
+				liste->tail->next_p = new_element;
+				liste->tail = new_element;
+			}
+			pthread_mutex_unlock(&liste->mutex);
+			printf("push_element() : ajout de l'élément\n");
+		}
+		return 1;
+	}
+	else {
+		return 0;
+	}
+}
+
+
+int pop_element(struct List* liste, data_msg * value_to_return) {
+	pthread_mutex_lock (&liste->mutex);
+	struct Element* tmp;
+	if (liste->head == 0) {
+		pthread_mutex_unlock (&liste->mutex);
+		return 0; 							// Retourne 0 = fail
+	}
+	tmp = liste->head->next_p;
+	memcpy(tmp, value_to_return, sizeof(data_msg));
+	free(liste->head);
+	liste->head = tmp;						// Le pointeur pointe sur le dernier élément.
+	pthread_mutex_unlock (&liste->mutex);
+	printf("pop_element() : suppression de l'élément\n");
+	return 1;								// retour 1 = success
+
+}
+
+
+void SendMessage(List_Id liste, struct Element* message, int message_length){
+	//if (message_length<=MSGSIZE){
+		if (liste == LIST_READ){
+			push_element(&liste_read, message);
+			sem_post(&liste_read.semaphore_list);
+		}
+//		else if(liste == LIST_DISPLAY){
+//			push_element(&liste_display, message);
+//			sem_post(&liste_display.semaphore_list);
+//		}
+	//}
+}
+
+int ReceiveMessage(List_Id liste, data_msg* message, int message_length){
+	int pop_status = 0;
+	//if (MSGSIZE<=message_length){
+		if (liste == LIST_READ){
+			debug_pr_fn(1, "receivemessage()entrée\n");
+			sem_wait(&liste_read.semaphore_list);
+			debug_pr_fn(1, "receivemessage()entrée\n");
+			pop_status = pop_element(&liste_read, message);
+		}
+		else if(liste == LIST_DISPLAY){
+			sem_wait(&liste_display.semaphore_list);
+			pop_status = pop_element(&liste_display, message);
+		}
+	//}
+	debug_pr_fn(1, "receivemessage()avant return\n");
+	return pop_status;
+}
+
+/**************************fonction pop V2*******************************
+int pop_element(struct List* liste, struct Element * value_to_return) {
+
+	//sem_wait(&liste->semaphore_list);
+	pthread_mutex_lock (&liste->mutex);
+	struct Element* tmp;
+	if (liste->head == 0) {
+		pthread_mutex_unlock (&liste->mutex);
+		return 0; 							// Retourne 0 = fail
+	}
+	tmp = liste->head->next_p;
+	memcpy(tmp, value_to_return, sizeof(struct Element));
+	free(liste->head);
+	liste->head = tmp;						// Le pointeur pointe sur le dernier élément.
+	pthread_mutex_unlock (&liste->mutex);
+	printf("(pop_element() : suppression de l'élément)\n");
+	return 1;								// retour 1 = success
+
+}
+
+
+
+
+
+
+/*
+#include "fifo.h"
+#include "threads.h"
+ /*
+
+************************fonction d'init de la liste*******************************
+void init_list(struct List* liste){
+	liste->head = 0;
+	liste->tail = 0;
+	liste->init = 1;
+	liste->mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
+	sem_init(&liste->semaphore_list,0,0);
+}
+
+
+/****************fonction envoi/reception dans liste + semaphore*************************
+void SendMessage(List_Id liste, struct Element * message, int message_length){
+
+	if (message_length<=MSGSIZE){
+		if (liste == LIST_READ){
+			push_element(&liste_read, message);
+			sem_post(&liste_read.semaphore_list);
+		}
+		else if(liste == LIST_DISPLAY){
+			push_element(&liste_display, message);
+			sem_post(&liste_display.semaphore_list);
+		}
+	}
+}
+
+int ReceiveMessage(List_Id liste, struct Element * message, int message_length){
+	int pop_status = 0;
+	if (MSGSIZE<=message_length){
+		if (liste == LIST_READ){
+			sem_wait(&liste_read.semaphore_list);
+			pop_status = pop_element(&liste_read, message);
+		}
+		else if(liste == LIST_DISPLAY){
+			sem_wait(&liste_display.semaphore_list);
+			pop_status = pop_element(&liste_display, message);
+		}
+	}
+	return pop_status;
+}
+
+
+
+
+
+*************************fonction push*******************************
+int push_element(struct List *liste, struct Element * value_to_push) {
+	if (liste->init == 1) {
+		struct Element* new_element = malloc(sizeof(struct Element)); 			//new_element contient l'adresse memoire des 8 octets crée
+		if (new_element) {            											 // si le malloc contient bien une adresse
+			pthread_mutex_lock(&liste->mutex);
+			memcpy(new_element, value_to_push, sizeof(struct Element));
+			new_element->next_p = 0;              								// adresse du prochain element
+			if (liste->head == 0) {                								// si la liste est vide
+				liste->tail = new_element; 										//on attache le nouvel element a la queue de liste
+				liste->head = new_element;         							  // on attache la tete aussi
+			} else {                    										//si la liste contient deja des elements
+				liste->tail->next_p = new_element;
+				liste->tail = new_element;
+			}
+			pthread_mutex_unlock(&liste->mutex);
+			printf("(push_element() : ajout de l'élément\n");
+		}
+		return 1;
+	}
+	else {
+		return 0;
+	}
+}
+
+
+/**************************fonction pop V2*******************************
+int pop_element(struct List* liste, struct Element * value_to_return) {
+
+	//sem_wait(&liste->semaphore_list);
+	pthread_mutex_lock (&liste->mutex);
+	struct Element* tmp;
+	if (liste->head == 0) {
+		pthread_mutex_unlock (&liste->mutex);
+		return 0; 							// Retourne 0 = fail
+	}
+	tmp = liste->head->next_p;
+	memcpy(tmp, value_to_return, sizeof(struct Element));
+	free(liste->head);
+	liste->head = tmp;						// Le pointeur pointe sur le dernier élément.
+	pthread_mutex_unlock (&liste->mutex);
+	printf("(pop_element() : suppression de l'élément)\n");
+	return 1;								// retour 1 = success
+
+}
+
+
+*/
+

@@ -1,0 +1,18 @@
+/*
+ * declarations.h
+ *
+ *  Created on: Apr 15, 2020
+ *      Author: ludivineo
+ */
+
+#ifndef 0_DECLARATIONS_H_
+#define 0_DECLARATIONS_H_
+
+typedef struct {
+	char RValue;
+	char GValue;
+	char BValue;
+} Color;
+
+
+#endif /* 0_DECLARATIONS_H_ */

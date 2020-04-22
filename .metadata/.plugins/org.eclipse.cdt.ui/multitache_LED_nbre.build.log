@@ -1,0 +1,6 @@
+09:41:33 **** Incremental Build of configuration Debug for project multitache_LED_nbre ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+
+09:41:34 Build Finished (took 482ms)
+
