@@ -33,6 +33,7 @@ extern Color Black, Red, Green, Blue, White, Purple, Yellow;
 typedef enum {
 	input_KEY,
 	output_LED,
+	trigger_TIMER,
 }cmd_t;
 
 
@@ -72,9 +73,16 @@ typedef struct {
 	point_t end_position;
 } pos_token_t;
 
+typedef enum {
+	ON,
+	OFF,
+	BLINK,
+}token_mode_t;
+
 typedef struct {
 	pos_token_t positions;
 	Color color;
+	token_mode_t mode;
 }move_token_t;
 
 

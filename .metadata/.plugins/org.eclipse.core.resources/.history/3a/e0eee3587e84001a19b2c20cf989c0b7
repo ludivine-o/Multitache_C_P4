@@ -1,0 +1,51 @@
+/*
+ * timers.c
+ *
+ *  Created on: Apr 22, 2020
+ *      Author: ludivineo
+ */
+
+#include <stdint.h>
+
+#include "timers.h"
+#include "fifo.h"
+
+
+typedef struct {
+	Status status;
+	int8_t countdown;
+	Owner owner;
+}Timer;
+
+Timer timers_table [TIMER_MAX];
+
+//Fonction pour lancer un timer
+void start_timer (int8_t timer_id, int8_t countdown, Owner owner){
+	timers_table[timer_id].countdown = countdown;
+	timers_table[timer_id].owner = owner;
+	timers_table[timer_id].status = START;
+}
+
+
+//thread qui gère l'incrémentation des timers :
+void *timers(void*arg){
+	while(1){
+		for (int i=0; i>TIMER_MAX; i++){
+			if (timers_table[i].status == START){
+				timers_table[i].countdown --;
+				if (timers_table[i].countdown == 0){
+				}
+			}
+		}
+	}
+}
+			//decremente
+			// si countdown == 0 // temps  à attendre avant le prochain sendMsg
+				// sendMsg (destinataire==owner, msg : id + status)
+				//status == STOP
+	//}
+	//usleep(1000)
+
+
+
+

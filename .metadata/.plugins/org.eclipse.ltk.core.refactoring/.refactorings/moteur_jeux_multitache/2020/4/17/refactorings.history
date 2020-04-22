@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Create method write_msg_to_send" description="Extract Method Refactoring" fileName="file:/home/ludivineo/Atollic/Multitache_C_P4/moteur_jeux_multitache/src/app.c" flags="4" id="org.eclipse.cdt.internal.ui.refactoring.extractfunction.ExtractFunctionRefactoring" name="write_msg_to_send" replaceDuplicates="false" selection="8016,376" stamp="1587563511862" visibility="private"/>
+</session>

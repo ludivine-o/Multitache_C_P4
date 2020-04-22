@@ -17,36 +17,37 @@
 void *read_button(void*arg) {
 	debug_pr_fn(1,"read()entrée thread read\n");
 	char recept_tab[5]={0};
-	struct Element request;
+	data_msg request;
 	while (1) {
 		if (readbutton(recept_tab, 5) == LCRC_OK) {
 			debug_pr_fn(1,"read()input = (%d %d %d %d)\n", recept_tab[0], recept_tab[1],	recept_tab[2], recept_tab[3]);
 			if (recept_tab[3] == 100) {
-				request.data.value[0] = input_KEY;
+				request.type = MSG_PLAYER;
+
 				if (recept_tab[1] == 49) {
-					request.data.value[1] = PLAYER_1;
+					request.params.player.player = PLAYER_1;
 				}
 				if (recept_tab[1] == 50) {
-					request.data.value[1] = PLAYER_2;
+					request.params.player.player = PLAYER_2;
 				}
 				if (recept_tab[2] == 117) { //vers le haut
 					printf("read_button():condition \"haut\"\n");
-					request.data.value[2] = UP;
+					request.params.player.direction = UP;
 				}
 				if (recept_tab[2] == 114 ) {	// vers le droite
 					printf("read_button():condition \"droite\" \n");
-					request.data.value[2] = RIGHT;
+					request.params.player.direction = RIGHT;
 				}
 				if (recept_tab[2] == 100 ) { //vers le bas
 					printf("read_button():condition \"bas\"\n");
-					request.data.value[2] = DOWN;
+					request.params.player.direction = DOWN;
 				}
 				if (recept_tab[2] == 108 ) { //vers le gauche
 					printf("read_button():condition \"gauche\"\n");
-					request.data.value[2] = LEFT;
+					request.params.player.direction = LEFT;
 				}
 			debug_pr_fn(1,"read() send to queue = OK\n");
-			SendMessage(LIST_READ, &request, sizeof(struct Element));
+			SendMessage(LIST_READ, &request, sizeof(struct data_msg));
 			}
 		}
 	}

@@ -17,7 +17,6 @@ static Color matrix[LINE_COUNT + 1][COL_COUNT];
 static Color actual_matrix[LINE_COUNT + 1][COL_COUNT];
 static char init_matrix = 0;
 
-
 void matrix_to_nbr(int number, Color nbr_color, Color bckgrnd_color) {
 	int row, col;
 	for (row = 0; row < 7; row++) {
@@ -155,8 +154,9 @@ void SetLedMatrix(void) {
 	for (int row = 0; row < 7; row++) {
 		int col = 0;
 		while (col < 7) {
-			if (init_matrix == 1 && actual_matrix[row][col].RValue == matrix[row][col].RValue //led est deja de la bonne couleur
-			&& actual_matrix[row][col].GValue == matrix[row][col].GValue
+			if (init_matrix == 1
+					&& actual_matrix[row][col].RValue == matrix[row][col].RValue //led est deja de la bonne couleur
+					&& actual_matrix[row][col].GValue == matrix[row][col].GValue
 					&& actual_matrix[row][col].BValue
 							== matrix[row][col].BValue) {
 			} else {
@@ -174,28 +174,37 @@ void SetLedMatrix(void) {
 }
 
 void *display(void*arg) {
-	debug_pr_fn(1,"display()entrée dans thread display\n");
+	debug_pr_fn(1, "display()entrée dans thread display\n");
 	data_msg request;
 	int receive_status;
 	matrix[0][0] = Blue;
 	SetLedMatrix();
 	while (1) {
-		receive_status = ReceiveMessage(LIST_DISPLAY, &request, sizeof(data_msg));
+		receive_status = ReceiveMessage(LIST_DISPLAY, &request,
+				sizeof(data_msg));
 
 		if (receive_status == 1) {
 
-			matrix[request.move_token.positions.beg_position.l][request.move_token.positions.beg_position.c].RValue = Black.RValue;
-			matrix[request.move_token.positions.beg_position.l][request.move_token.positions.beg_position.c].GValue = Black.GValue;
-			matrix[request.move_token.positions.beg_position.l][request.move_token.positions.beg_position.c].BValue = Black.BValue;
-			matrix[request.move_token.positions.end_position.l][request.move_token.positions.end_position.c].RValue = request.move_token.color.RValue;
-			matrix[request.move_token.positions.end_position.l][request.move_token.positions.end_position.c].GValue = request.move_token.color.GValue;
-			matrix[request.move_token.positions.end_position.l][request.move_token.positions.end_position.c].BValue = request.move_token.color.BValue;
-			SetLedMatrix();
+			if (request.type == MSG_PLAYER) {
+				matrix[request.params.move_token.positions.beg_position.l][request.params.move_token.positions.beg_position.c].RValue =
+						Black.RValue;
+				matrix[request.params.move_token.positions.beg_position.l][request.params.move_token.positions.beg_position.c].GValue =
+						Black.GValue;
+				matrix[request.params.move_token.positions.beg_position.l][request.params.move_token.positions.beg_position.c].BValue =
+						Black.BValue;
+				matrix[request.params.move_token.positions.end_position.l][request.params.move_token.positions.end_position.c].RValue =
+						request.params.move_token.color.RValue;
+				matrix[request.params.move_token.positions.end_position.l][request.params.move_token.positions.end_position.c].GValue =
+						request.params.move_token.color.GValue;
+				matrix[request.params.move_token.positions.end_position.l][request.params.move_token.positions.end_position.c].BValue =
+						request.params.move_token.color.BValue;
+				SetLedMatrix();
 
-			debug_pr_fn(1,"display()SetLedColor = OK\n");
+				debug_pr_fn(1, "display()SetLedColor = OK\n");
 			}
-		usleep(500000);
+			//usleep(500000);  ???
+		}
+		pthread_exit(NULL);
 	}
-	pthread_exit(NULL);
 }
 

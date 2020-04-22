@@ -16,10 +16,33 @@ typedef enum {
 LIST_READ, LIST_DISPLAY }
 List_Id;
 
-typedef union data_msg {
-	move_token_t move_token;
-	char value[10];
+#define INIT_DATA_MSG {.type = MSG_NONE}
+
+
+typedef enum {
+	MSG_NONE,
+	MSG_PLAYER,
+	MSG_MOVE_TOKEN,
+	MSG_TIMER
+} MessageType;
+
+typedef struct {
+	player_t player;
+	dir_t direction;
+}player_data_msg;
+
+
+typedef struct data_msg {
+	MessageType type;
+	union {
+		player_data_msg player;		//(MSG_PLAYER) read -> app
+		move_token_t move_token;	//(MSG_MOVE_TOKEN) app -> display
+		char value[10];				//
+		int timer_id; 				//(MSG_TIMER) timer -> thread
+	} params;
 }data_msg;
+
+
 
 #define MSGSIZE sizeof(data_msg)
 

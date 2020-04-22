@@ -1,11 +1,25 @@
-16:28:38 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+16:02:11 **** Build of configuration Debug for project moteur_jeux_multitache ****
 make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/__debug.d" -MT"src/__debug.o" -o "src/__debug.o" "../src/__debug.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/__leds_control.d" -MT"src/__leds_control.o" -o "src/__leds_control.o" "../src/__leds_control.c"
 gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
-../src/app.c: In function ‘application’:
-../src/app.c:262:9: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
-     if (game_status.status = live){ // si le jeu n'est NI NULL, NI GAGNE
-         ^~~~~~~~~~~
-gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/game_p4.o ./src/main.o ./src/read.o ./src/threads.o   -lpthread
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/display.d" -MT"src/display.o" -o "src/display.o" "../src/display.c"
+../src/app.c: In function ‘gp4_init’:
+../src/app.c:74:66: warning: statement with no effect [-Wunused-value]
+  instructions_to_send.params.move_token.positions.end_position.c == START_POSITION;
+At top level:
+../src/app.c:241:13: warning: ‘gp4_next_player’ defined but not used [-Wunused-function]
+ static void gp4_next_player(void) {
+             ^~~~~~~~~~~~~~~
+../src/app.c: In function ‘gp4_init’:
+../src/app.c:74:63: warning: ‘instructions_to_send.params.move_token.positions.end_position.c’ is used uninitialized in this function [-Wuninitialized]
+  instructions_to_send.params.move_token.positions.end_position.c == START_POSITION;
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/fifo.d" -MT"src/fifo.o" -o "src/fifo.o" "../src/fifo.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/read.d" -MT"src/read.o" -o "src/read.o" "../src/read.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/timers.d" -MT"src/timers.o" -o "src/timers.o" "../src/timers.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/main.o ./src/read.o ./src/timers.o   -lpthread
 
-16:28:38 Build Finished (took 619ms)
+16:02:12 Build Finished (took 728ms)
 

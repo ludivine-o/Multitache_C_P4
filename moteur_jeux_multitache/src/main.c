@@ -12,11 +12,12 @@
 #include<unistd.h>
 
 #include "__debug.h"
+#include"__leds_control.h"
 #include"fifo.h"
 #include"read.h"
 #include"app.h"
 #include"display.h"
-#include"__leds_control.h"
+#include"timers.h"
 
 
 int main(void){
@@ -28,6 +29,7 @@ int main(void){
 	pthread_t thread1;
 	pthread_t thread2;
 	pthread_t thread3;
+	pthread_t thread4;
 
 	openLink();
 	pthread_create(&thread1, NULL, read_button, NULL);
@@ -36,9 +38,12 @@ int main(void){
 	debug_pr_fn(1,"main()creation thread app\n");
 	pthread_create(&thread3, NULL, display, NULL);
 	debug_pr_fn(1,"main()creation thread display\n");
+	pthread_create(&thread4, NULL, timers, NULL);
+	debug_pr_fn(1,"main()creation thread timers\n");
 	pthread_join (thread1, NULL);
 	pthread_join (thread2, NULL);
 	pthread_join (thread3, NULL);
+	pthread_join (thread4, NULL);
 	closeLink();
 
 

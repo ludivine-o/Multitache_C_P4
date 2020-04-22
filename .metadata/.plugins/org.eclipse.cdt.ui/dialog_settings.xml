@@ -3,6 +3,10 @@
 	<item value="pthread" key="org.eclipse.cdt.utils.ui.controls.FileListControl"/>
 	<item value="Default C source template" key="LastUsedSourceTemplate"/>
 	<item value="Default C header template" key="LastUsedHeaderTemplate"/>
+	<section name="RefactoringWizard.preview">
+		<item value="600" key="width"/>
+		<item value="400" key="height"/>
+	</section>
 	<section name="org.eclipse.cdt.ui.text.hover.CMacroExpansionExploration">
 	</section>
 	<section name="PDOMSearchPage">
@@ -19,6 +23,9 @@
 	<section name="RenameInformationPopup">
 	</section>
 	<section name="CRenameRefactoringInputPage">
+	</section>
+	<section name="ExtractFunctionWizard">
+		<item value="private" key="AccessModifier"/>
 	</section>
 	<section name="completion_proposal_size">
 	</section>

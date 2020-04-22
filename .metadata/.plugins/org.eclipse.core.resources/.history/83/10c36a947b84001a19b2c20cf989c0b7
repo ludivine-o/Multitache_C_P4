@@ -1,0 +1,15 @@
+/*
+ * timers.c
+ *
+ *  Created on: Apr 22, 2020
+ *      Author: ludivineo
+ */
+
+#include "timers.h"
+
+//thread qui gère l'incrémentation des timers :
+void *timers(void*arg){
+
+}
+
+
