@@ -31,19 +31,19 @@ void *read_button(void*arg) {
 					request.params.player.player = PLAYER_2;
 				}
 				if (recept_tab[2] == 117) { //vers le haut
-					printf("read_button():condition \"haut\"\n");
+					debug_pr_fn(2,"read_button():condition \"haut\"\n");
 					request.params.player.direction = UP;
 				}
 				if (recept_tab[2] == 114 ) {	// vers le droite
-					printf("read_button():condition \"droite\" \n");
+					debug_pr_fn(2,"read_button():condition \"droite\" \n");
 					request.params.player.direction = RIGHT;
 				}
 				if (recept_tab[2] == 100 ) { //vers le bas
-					printf("read_button():condition \"bas\"\n");
+					debug_pr_fn(2,"read_button():condition \"bas\"\n");
 					request.params.player.direction = DOWN;
 				}
 				if (recept_tab[2] == 108 ) { //vers le gauche
-					printf("read_button():condition \"gauche\"\n");
+					debug_pr_fn(2,"read_button():condition \"gauche\"\n");
 					request.params.player.direction = LEFT;
 				}
 			debug_pr_fn(1,"read() send to queue = OK\n");

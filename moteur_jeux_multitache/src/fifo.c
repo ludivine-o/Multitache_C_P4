@@ -34,7 +34,7 @@ int push_element(struct List *liste, data_msg * value_to_push) {
 				liste->tail = new_element;
 			}
 			pthread_mutex_unlock(&liste->mutex);
-			printf("push_element() : ajout de l'élément\n");
+			debug_pr_fn(2, "push_element() : ajout de l'élément\n");
 		}
 		return 1;
 	}
@@ -57,7 +57,7 @@ int pop_element(struct List* liste, data_msg * value_to_return) {
 	free(liste->head);
 	liste->head = tmp;						// Le pointeur pointe sur le dernier élément.
 	pthread_mutex_unlock (&liste->mutex);
-	printf("pop_element() : suppression de l'élément\n");
+	debug_pr_fn(2,"pop_element() : suppression de l'élément\n");
 	return 1;								// retour 1 = success
 
 }
@@ -80,9 +80,9 @@ int ReceiveMessage(List_Id liste, data_msg* message, int message_length){
 	int pop_status = 0;
 	//if (MSGSIZE<=message_length){
 		if (liste == LIST_READ){
-			debug_pr_fn(1, "receivemessage()entrée\n");
+			debug_pr_fn(2, "receivemessage()entrée\n");
 			sem_wait(&liste_read.semaphore_list);
-			debug_pr_fn(1, "receivemessage()entrée\n");
+			debug_pr_fn(2, "receivemessage()entrée\n");
 			pop_status = pop_element(&liste_read, message);
 		}
 		else if(liste == LIST_DISPLAY){
@@ -90,6 +90,6 @@ int ReceiveMessage(List_Id liste, data_msg* message, int message_length){
 			pop_status = pop_element(&liste_display, message);
 		}
 	//}
-	debug_pr_fn(1, "receivemessage()avant return\n");
+	debug_pr_fn(2, "receivemessage()avant return\n");
 	return pop_status;
 }

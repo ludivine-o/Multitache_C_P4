@@ -21,7 +21,7 @@ void debug_setlevel(int inNewLevel) ;
 
 // ##__VA_ARGS__ : no replacement of variable arguments if empty
 // see https://gcc.gnu.org/onlinedocs/cpp/Variadic-Macros.html#Variadic-Macroshtml#Concatenation
-#define debug_printf( inLevel, format, ...) debug_pr_fn(inLevel, __FILE__ ":%d: " format , __LINE__ , ##__VA_ARGS__ )
+#define debug_printf( inLevel, format, ...) debug_pr_fn(inLevel, __FILE__ ":%s:%d: " format , __func__, __LINE__ , ##__VA_ARGS__ )
 #define error_printf(format, ...) debug_pr_fn(-1, format , ##__VA_ARGS__)
 
 int debug_pr_fn(int inLevel, const char *format, ...) ;

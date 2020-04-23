@@ -13,13 +13,13 @@
 
 #define COL_COUNT 7		//il y a 7 colonnes (de 1 à 7)
 #define LINE_COUNT 6	//il y a 6 lignes (de 1 à 6)
-#define START_POSITION 4
+#define START_POSITION 3
 
 #define color_P1 Yellow
 #define color_P2 Green
+#define EMPTY_SPACE 0
 
-
-void * application(void*arg);
+void * applicationV2(void*arg);
 
 
 typedef struct {

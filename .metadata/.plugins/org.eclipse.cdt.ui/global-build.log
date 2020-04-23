@@ -1,26 +1,167 @@
-16:02:09 **** Clean-only build of configuration Debug for project moteur_jeux_multitache ****
+13:55:29 **** Clean-only build of configuration Debug for project moteur_jeux_multitache ****
 make -j4 clean 
 rm -rf  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/main.o ./src/read.o ./src/timers.o  ./src/__debug.d ./src/__leds_control.d ./src/app.d ./src/display.d ./src/fifo.d ./src/main.d ./src/read.d ./src/timers.d  moteur_jeux_multitache
  
-16:02:11 **** Build of configuration Debug for project moteur_jeux_multitache ****
+13:55:31 **** Build of configuration Debug for project moteur_jeux_multitache ****
 make -j4 all 
 gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/__debug.d" -MT"src/__debug.o" -o "src/__debug.o" "../src/__debug.c"
 gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/__leds_control.d" -MT"src/__leds_control.o" -o "src/__leds_control.o" "../src/__leds_control.c"
 gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
 gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/display.d" -MT"src/display.o" -o "src/display.o" "../src/display.c"
-../src/app.c: In function ‘gp4_init’:
-../src/app.c:74:66: warning: statement with no effect [-Wunused-value]
-  instructions_to_send.params.move_token.positions.end_position.c == START_POSITION;
-At top level:
-../src/app.c:241:13: warning: ‘gp4_next_player’ defined but not used [-Wunused-function]
- static void gp4_next_player(void) {
-             ^~~~~~~~~~~~~~~
-../src/app.c: In function ‘gp4_init’:
-../src/app.c:74:63: warning: ‘instructions_to_send.params.move_token.positions.end_position.c’ is used uninitialized in this function [-Wuninitialized]
-  instructions_to_send.params.move_token.positions.end_position.c == START_POSITION;
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+../src/app.c: In function ‘gp4_next_playerV2’:
+../src/app.c:318:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
 gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/fifo.d" -MT"src/fifo.o" -o "src/fifo.o" "../src/fifo.c"
 gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
 gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/read.d" -MT"src/read.o" -o "src/read.o" "../src/read.c"
 gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/timers.d" -MT"src/timers.o" -o "src/timers.o" "../src/timers.c"
 gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/main.o ./src/read.o ./src/timers.o   -lpthread
+13:57:32 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+14:02:50 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+14:03:13 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+14:25:04 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+14:25:16 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+14:42:03 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+../src/app.c: In function ‘gp4_next_playerV2’:
+../src/app.c:318:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/main.o ./src/read.o ./src/timers.o   -lpthread
+14:42:19 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+14:45:44 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+../src/app.c: In function ‘gp4_next_playerV2’:
+../src/app.c:318:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/main.o ./src/read.o ./src/timers.o   -lpthread
+15:13:47 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:19:31 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:20:32 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:20:38 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:20:45 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:21:51 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:21:54 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:22:31 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:22:40 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:30:07 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:38:27 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/display.d" -MT"src/display.o" -o "src/display.o" "../src/display.c"
+../src/app.c: In function ‘gp4_next_playerV2’:
+../src/app.c:319:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/main.o ./src/read.o ./src/timers.o   -lpthread
+15:38:35 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:38:37 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:40:37 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+../src/app.c: In function ‘gp4_next_playerV2’:
+../src/app.c:319:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/main.o ./src/read.o ./src/timers.o   -lpthread
+15:40:43 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:41:37 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+../src/app.c: In function ‘gp4_next_playerV2’:
+../src/app.c:319:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/main.o ./src/read.o ./src/timers.o   -lpthread
+15:41:42 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:42:57 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:43:49 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+../src/app.c: In function ‘gp4_next_playerV2’:
+../src/app.c:319:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/main.o ./src/read.o ./src/timers.o   -lpthread
+15:43:54 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:44:08 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:49:16 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/display.d" -MT"src/display.o" -o "src/display.o" "../src/display.c"
+../src/app.c: In function ‘gp4_next_playerV2’:
+../src/app.c:326:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/main.o ./src/read.o ./src/timers.o   -lpthread
+15:49:19 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:50:39 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+../src/app.c: In function ‘gp4_next_playerV2’:
+../src/app.c:322:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/main.o ./src/read.o ./src/timers.o   -lpthread
+15:54:36 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+15:57:03 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/main.o ./src/read.o ./src/timers.o   -lpthread
+15:57:08 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.

@@ -33,11 +33,11 @@ int main(void){
 
 	openLink();
 	pthread_create(&thread1, NULL, read_button, NULL);
-	debug_pr_fn(1,"main()creation thread read\n");
-	pthread_create(&thread2, NULL, application, NULL);
-	debug_pr_fn(1,"main()creation thread app\n");
+	debug_pr_fn(2,"main()creation thread read\n");
+	pthread_create(&thread2, NULL, applicationV2, NULL);
+	debug_pr_fn(2,"main()creation thread app\n");
 	pthread_create(&thread3, NULL, display, NULL);
-	debug_pr_fn(1,"main()creation thread display\n");
+	debug_pr_fn(2,"main()creation thread display\n");
 	pthread_create(&thread4, NULL, timers, NULL);
 	debug_pr_fn(1,"main()creation thread timers\n");
 	pthread_join (thread1, NULL);

@@ -15,7 +15,7 @@
 
 static Color matrix[LINE_COUNT + 1][COL_COUNT];
 static Color actual_matrix[LINE_COUNT + 1][COL_COUNT];
-static char init_matrix = 0;
+static bool is_matrix_init = false;
 
 void matrix_to_nbr(int number, Color nbr_color, Color bckgrnd_color) {
 	int row, col;
@@ -154,7 +154,7 @@ void SetLedMatrix(void) {
 	for (int row = 0; row < 7; row++) {
 		int col = 0;
 		while (col < 7) {
-			if (init_matrix == 1
+			if 		(is_matrix_init
 					&& actual_matrix[row][col].RValue == matrix[row][col].RValue //led est deja de la bonne couleur
 					&& actual_matrix[row][col].GValue == matrix[row][col].GValue
 					&& actual_matrix[row][col].BValue
@@ -165,46 +165,75 @@ void SetLedMatrix(void) {
 				actual_matrix[row][col].RValue = matrix[row][col].RValue;
 				actual_matrix[row][col].GValue = matrix[row][col].GValue;
 				actual_matrix[row][col].BValue = matrix[row][col].BValue;
-				debug_pr_fn(1, "SetLedMatrix() SLC = ok");
+				debug_printf(1, "SetLedMatrix() SLC = ok");
 			}
 			col++;
 		}
 	}
-	init_matrix = 1;
+	is_matrix_init = 1;
 }
 
 void *display(void*arg) {
 	debug_pr_fn(1, "display()entrée dans thread display\n");
 	data_msg request;
 	int receive_status;
-	matrix[0][0] = Blue;
 	SetLedMatrix();
 	while (1) {
-		receive_status = ReceiveMessage(LIST_DISPLAY, &request,
-				sizeof(data_msg));
-
+		receive_status = ReceiveMessage(LIST_DISPLAY, &request,	sizeof(data_msg));
+		debug_pr_fn(1, "display() : receive = %d\n", receive_status);
 		if (receive_status == 1) {
+			if (request.type == MSG_MOVE_TOKEN) {
+				debug_pr_fn(1, "display() : msg player = %d \n", request.type);
 
-			if (request.type == MSG_PLAYER) {
-				matrix[request.params.move_token.positions.beg_position.l][request.params.move_token.positions.beg_position.c].RValue =
-						Black.RValue;
-				matrix[request.params.move_token.positions.beg_position.l][request.params.move_token.positions.beg_position.c].GValue =
-						Black.GValue;
-				matrix[request.params.move_token.positions.beg_position.l][request.params.move_token.positions.beg_position.c].BValue =
-						Black.BValue;
-				matrix[request.params.move_token.positions.end_position.l][request.params.move_token.positions.end_position.c].RValue =
-						request.params.move_token.color.RValue;
-				matrix[request.params.move_token.positions.end_position.l][request.params.move_token.positions.end_position.c].GValue =
-						request.params.move_token.color.GValue;
-				matrix[request.params.move_token.positions.end_position.l][request.params.move_token.positions.end_position.c].BValue =
-						request.params.move_token.color.BValue;
+				pos_token_t positions = request.params.move_token.positions;
+				matrix[positions.beg_position.l][positions.beg_position.c] = Black;
+				matrix[positions.end_position.l][positions.end_position.c] = request.params.move_token.color;
 				SetLedMatrix();
-
-				debug_pr_fn(1, "display()SetLedColor = OK\n");
+				debug_printf(1, "display()SetLedColor = OK\n");
 			}
-			//usleep(500000);  ???
 		}
-		pthread_exit(NULL);
 	}
+	pthread_exit(NULL);
 }
 
+//void setledmatrix(struct Element *message) {
+//	int beg_row = message->data.token.position.beg_position.l;
+//	int beg_col = message->data.token.position.beg_position.c;
+//	int end_row = message->data.token.position.end_position.l;
+//	int end_col = message->data.token.position.end_position.c;
+//	if (beg_row == 10 && beg_col == 10) {
+//	} else {
+//		matrix_led[beg_row ][beg_col] = BACKGROUND;
+//	}
+//	matrix_led[end_row ][end_col] = message->data.token.color;
+//}
+
+//void *thread_display(void *arg) {
+//	struct Element value_compt;
+//	data_msg request;
+//	while (1) {
+//		if (ReceiveMessage(LIST_DISPLAY, &request,	sizeof(data_msg))) {
+////			printf(" display b %d%d  e %d%d \n",
+////					value_compt.data.token.position.beg_position.c,
+////					value_compt.data.token.position.beg_position.l,
+////					value_compt.data.token.position.end_position.c,
+////					value_compt.data.token.position.end_position.l);
+////			//			set_number(value_compt.data.value[1]);
+////			setledmatrix(&value_compt);
+////			for (int row = 0; row < 7; row++){
+////				for (int col = 0; col < 7; col++){
+////					if ((matrix[row][col].RValue == actual_matrix[row][col].RValue)
+////							&& (matrix[row][col].GValue == actual_matrix[row][col].GValue)
+////							&& (matrix[row][col].BValue == actual_matrix[row][col].BValue)) {
+////					} else {
+////						setLedColor((row + 1 ), (col + 1 ),
+////								matrix[row][col].RValue,
+////								matrix[row][col].GValue,
+////								matrix[row][col].BValue);
+////						actual_matrix[row ][col] = matrix[row ][col];
+////					}
+//				}
+//			}
+//		}
+//	}
+//}

@@ -7,6 +7,7 @@
 
 #include<stdio.h>
 #include<pthread.h>
+#include<stdbool.h>
 
 #include "fifo.h"
 #include"app.h"
@@ -15,6 +16,7 @@
 static int8_t g_token_top_selector = 1;
 static int8_t active_player = NO_PLAYER;
 static int8_t g_matrix[COL_COUNT][LINE_COUNT];
+static bool game = false;
 
 Color Black = { 0, 0, 0 }, Blue = { 0, 0, 255 }, Red = { 255, 0, 0 }, White = {
 		255, 255, 255 }, Purple = { 255, 0, 255 }, Yellow = { 255, 255, 0 },
@@ -61,7 +63,7 @@ bool is_col_empty(int col) {
 	return false;
 }
 
-void gp4_init(void) {
+data_msg gp4_init(void) {
 	int row, col;
 	data_msg instructions_to_send;
 	active_player = PLAYER_1;
@@ -71,11 +73,12 @@ void gp4_init(void) {
 			g_matrix[row][col] = NO_PLAYER;
 		}
 	}
-	instructions_to_send.params.move_token.positions.end_position.c
-	== START_POSITION;
+	instructions_to_send.type = MSG_MOVE_TOKEN;
+	instructions_to_send.params.move_token.positions.end_position.c =
+			START_POSITION;
 	instructions_to_send.params.move_token.positions.end_position.l = 0;
 	instructions_to_send.params.move_token.color = color_P1;
-
+	return instructions_to_send;
 }
 
 pos_token_t gp4_move_right_test(void) {
@@ -129,7 +132,7 @@ pos_token_t gp4_play_token(void) {
 		line--;
 	}
 	g_matrix[(column)][line] = active_player;
-	pos_token_t return_played_token;
+	pos_token_t return_played_token = { 0 };
 	return_played_token.is_ok = true;
 	return_played_token.beg_position.c = column;
 	return_played_token.beg_position.l = 0;
@@ -265,143 +268,242 @@ static winner_t gp4_check_status(void) {
 	if (game_status.status == live) {
 		game_status = gp4_check_win_horizontal();
 	}
-	if (game_status == live) {
+	if (game_status.status == live) {
 		game_status = gp4_check_win_vertical();
 	}
-	if (game_status == live) {
+	if (game_status.status == live) {
 		game_status = gp4_check_win_rightdiag();
 	}
-	if (game_status == live) {
+	if (game_status.status == live) {
 		game_status = gp4_check_win_leftdiag();
 	}
 	return game_status;
 }
 
-static void gp4_next_player(void) {
-	debug_printf(1, "changement de joueur\n");
-	if (active_player == 1) {
-		active_player = 2;
+//static void gp4_next_player(void) {
+//	debug_printf(1, "changement de joueur\n");
+//	if (active_player == 1) {
+//		active_player = 2;
+//	} else {
+//		active_player = 1;
+//	}
+//	//TODO :placer le token sur une colonne dispo
+//	g_token_top_selector = START_POSITION;
+//}
+
+pos_token_t gp4_next_playerV2(void) {
+
+
+	pos_token_t pos_token_top = { 0 };
+	pos_token_top.end_position.l = 0;
+
+	if (active_player == PLAYER_1) {
+		active_player = PLAYER_2;
 	} else {
-		active_player = 1;
+		active_player = PLAYER_1;
 	}
-	//TODO :placer le token sur une colonne dispo
-	g_token_top_selector = 1;
+	g_token_top_selector = START_POSITION;
+	//TODO : verifier si la colonne est vide
+
+	while (g_matrix[g_token_top_selector][0] != EMPTY_SPACE) {
+		g_token_top_selector += 1;
+		if (g_token_top_selector > (COL_COUNT - 1)) {
+			g_token_top_selector = EMPTY_SPACE;
+		} else if (g_token_top_selector < 0) {
+			g_token_top_selector = COL_COUNT - 1;
+		}
+
+		//while (!is_col_empty(g_token_top_selector)) {
+		//pos_token_top = gp4_move_right_test();
+		//}
+	}
+	pos_token_top.end_position.c = g_token_top_selector;
+	return pos_token_top;
 }
 
-void write_msg_to_send(pos_token_t played_token, data_msg* instructions_to_send) {
-	instructions_to_send->params.move_token.positions.beg_position.c =
-			played_token.beg_position.c;
-	instructions_to_send->params.move_token.positions.beg_position.l =
-			played_token.beg_position.l;
-	instructions_to_send->params.move_token.positions.end_position.c =
-			played_token.end_position.c;
-	instructions_to_send->params.move_token.positions.end_position.l =
-			played_token.end_position.l;
+data_msg write_msg_to_send(pos_token_t played_token) {
+	data_msg instructions_to_send = { 0 };
+	instructions_to_send.type = MSG_MOVE_TOKEN;
+	instructions_to_send.params.move_token.positions = played_token;
+	if (active_player == PLAYER_1) {
+		instructions_to_send.params.move_token.color = color_P1;
+	}
+	if (active_player == PLAYER_2) {
+		instructions_to_send.params.move_token.color = color_P2;
+	}
+	return instructions_to_send;
 }
 
-void * application(void*arg) {
+void * applicationV2(void*arg) {
 	debug_pr_fn(1, "app()entrée dans thread app\n");
 	int receive_status = 0;
-	pos_token_t played_token;
-	winner_t game_status;
+	pos_token_t played_token = { 0 };
+	winner_t game_status = { 0 };
 	while (1) {
-		data_msg received_instructions = INIT_DATA_MSG ;
-		debug_pr_fn(1, "app()entrée dans while thread app\n");
-		receive_status = ReceiveMessage(LIST_READ, &received_instructions,sizeof(data_msg));
-		debug_pr_fn(1, "app()receive msg status : %d\n", receive_status);
+		//---------------------------------------------reception msg fifo--------------------------------------//
+		data_msg received_instructions = INIT_DATA_MSG;
+		debug_printf(1, "app()entrée dans while thread app\n");
+		receive_status = ReceiveMessage(LIST_READ, &received_instructions,
+				sizeof(data_msg));
+		debug_printf(1, "app()receive msg status : %d\n", receive_status);
 		if (receive_status == 1) {
-
-			if (active_player == NO_PLAYER) {
-				gp4_init();
-				SendMessage(LIST_DISPLAY, &instructions_to_send,sizeof(data_msg));
-			} else {
-				if (received_instructions.type == MSG_PLAYER) { //type de commande : saisie clavier
-					data_msg instructions_to_send = INIT_DATA_MSG;
-					game_status = gp4_check_status();
-					// si le jeu n'est NI NULL, NI GAGNE
-					if (game_status.status == live) {
-						if (received_instructions.params.player.player
-								== PLAYER_1) { //definir le joueur 1
-							active_player = PLAYER_1;
-							instructions_to_send.params.move_token.color = 	color_P1;
-						}
-						if (received_instructions.params.player.player== PLAYER_2) { //definir le joueur 2
-							active_player = PLAYER_2;
-							instructions_to_send.params.move_token.color = color_P2;
-						}
-						if (received_instructions.params.player.direction== LEFT) { //direction gauche
-							played_token = gp4_move_left_test();
-						}
-						if (received_instructions.params.player.direction== RIGHT) { //direction droite
-							played_token = gp4_move_right_test();
-						}
-						if (received_instructions.params.player.direction== DOWN) { //direction droite
-							played_token = gp4_play_token();
-						}
-						//FIN : Instruction à envoyer
-						gp4_show_board();
-						write_msg_to_send(played_token, &instructions_to_send);
+			//-------------------------------------si saisie clavier (fleche simu)------------------------------//
+			if (received_instructions.type == MSG_PLAYER) { //type de commande : saisie clavier
+				data_msg instructions_to_send = INIT_DATA_MSG;
+				//---------------------------------------------si partie en cours--------------------------------//
+				if (received_instructions.params.player.player
+						== active_player) {
+					debug_printf(1, "app()entrée dans le coeur de jeu\n");
+					if (received_instructions.params.player.direction == LEFT) {
+						played_token = gp4_move_left_test();
+					}
+					if (received_instructions.params.player.direction
+							== RIGHT) {
+						played_token = gp4_move_right_test();
+					}
+					if (received_instructions.params.player.direction == DOWN) {
+						played_token = gp4_play_token();
+						instructions_to_send = write_msg_to_send(played_token);
 						SendMessage(LIST_DISPLAY, &instructions_to_send,
 								sizeof(data_msg));
-						debug_pr_fn(1, "app()send queue = ok\n");
+						debug_printf(1, "instruction to send : player : %d",
+								instructions_to_send.params.player.player);
+						game_status = gp4_check_status();
+						if (game_status.status == live) {
+							played_token = gp4_next_playerV2();
+							if (active_player == PLAYER_1) {
+								instructions_to_send.params.move_token.color = color_P1;
+							} else if (active_player == PLAYER_2) {
+								instructions_to_send.params.move_token.color = color_P2;
+							}
+						}
 					}
+					instructions_to_send = write_msg_to_send(played_token);
+					SendMessage(LIST_DISPLAY, &instructions_to_send,
+							sizeof(data_msg));
+					gp4_show_board();
+				}
+				//------------------------------------------si pas de partie en cours---------------------------//
+				if (active_player == NO_PLAYER) {
+					//game = true;
+					instructions_to_send = gp4_init();
+					debug_printf(1, "app()game = %d, player = %d\n", game,
+							active_player);
+					SendMessage(LIST_DISPLAY, &instructions_to_send,
+							sizeof(data_msg));
+					gp4_show_board();
 				}
 			}
 		}
-		pthread_exit(NULL);
 	}
 }
 
-/*
- *
- * void *thread_app(void *arg) {
- //	struct Element nb_value;
- //	nb_value.data.value[1]=0;
- active_player = 0;
- struct Element receive_value;
- struct Element send_value;
- pos_token_played_t played_token;
- while (1) {
- if (receive_message(QUEUE_READ, &receive_value, SIZEOFMESSAGE)) {
- //			printf("app %d %d \n", receive_value.data.value[0],
- //					receive_value.data.value[1]);
- if(receive_value.msg==msg_player){
- if (receive_value.data.player.player == active_player) {
- if (receive_value.data.player.direction == DOWN) {
- played_token = gp4_play_token();
- compute_message(&send_value, &played_token);
- send_message(QUEUE_SEND, &send_value, SIZEOFMESSAGE);
- played_token=gp4_next_player();
- if (active_player == PLAYER_1) {
- send_value.data.token.color = PLAYER_COLOR_1;
- }
- else if (active_player == PLAYER_2) {
- send_value.data.token.color = PLAYER_COLOR_2;
- }
- }
- if (receive_value.data.player.direction== RIGHT) {
- played_token = gp4_move_right();
- }
- if (receive_value.data.player.direction == LEFT) {
- played_token = gp4_move_left();
- }
- }
- if (active_player == 0) {
- gp4_init();
- gp4_display();
- active_player = PLAYER_1;
- played_token.beg_position.c = 0;
- played_token.beg_position.l = 0;
- played_token.end_position.l = 0;
- played_token.end_position.c = 3;
- send_value.data.token.color = PLAYER_COLOR_1;
- }
- gp4_display();
- compute_message(&send_value, &played_token);
- send_message(QUEUE_SEND, &send_value, SIZEOFMESSAGE);
- }
-
- }
- }
- }
- */
+//
+//
+//
+//void * application(void*arg) {
+//	debug_pr_fn(1, "app()entrée dans thread app\n");
+//	int receive_status = 0;
+//	pos_token_t played_token;
+//	winner_t game_status;
+//	bool game = false;
+//	while (1) {
+//		data_msg received_instructions = INIT_DATA_MSG ;
+//		debug_pr_fn(1, "app()entrée dans while thread app\n");
+//		receive_status = ReceiveMessage(LIST_READ, &received_instructions,sizeof(data_msg));
+//		debug_pr_fn(1, "app()receive msg status : %d\n", receive_status);
+//		if (receive_status == 1) {
+//			if (active_player == NO_PLAYER) {
+//				gp4_init();
+//				SendMessage(LIST_DISPLAY, &instructions_to_send,sizeof(data_msg));
+//			} else
+//				if (received_instructions.type == MSG_PLAYER) { //type de commande : saisie clavier
+//					data_msg instructions_to_send = INIT_DATA_MSG;
+//					game_status = gp4_check_status();
+//					// si le jeu n'est NI NULL, NI GAGNE
+//					if (game_status.status == live) {
+//						if (received_instructions.params.player.player
+//								== PLAYER_1) { //definir le joueur 1
+//							active_player = PLAYER_1;
+//							instructions_to_send.params.move_token.color = 	color_P1;
+//						}
+//						if (received_instructions.params.player.player== PLAYER_2) { //definir le joueur 2
+//							active_player = PLAYER_2;
+//							instructions_to_send.params.move_token.color = color_P2;
+//						}
+//						if (received_instructions.params.player.direction== LEFT) { //direction gauche
+//							played_token = gp4_move_left_test();
+//						}
+//						if (received_instructions.params.player.direction== RIGHT) { //direction droite
+//							played_token = gp4_move_right_test();
+//						}
+//						if (received_instructions.params.player.direction== DOWN) { //direction droite
+//							played_token = gp4_play_token();
+//						}
+//						//FIN : Instruction à envoyer
+//						gp4_show_board();
+//						write_msg_to_send(played_token, &instructions_to_send);
+//						SendMessage(LIST_DISPLAY, &instructions_to_send,
+//								sizeof(data_msg));
+//						debug_pr_fn(1, "app()send queue = ok\n");
+//					}
+//				}
+//		}
+//	}
+//	pthread_exit(NULL);
+//}
+//}
+//
+///*
+// *
+// * void *thread_app(void *arg) {
+// //	struct Element nb_value;
+// //	nb_value.data.value[1]=0;
+// active_player = 0;
+// struct Element receive_value;
+// struct Element send_value;
+// pos_token_played_t played_token;
+// while (1) {
+// if (receive_message(QUEUE_READ, &receive_value, SIZEOFMESSAGE)) {
+// //			printf("app %d %d \n", receive_value.data.value[0],
+// //					receive_value.data.value[1]);
+// if(receive_value.msg==msg_player){
+// if (receive_value.data.player.player == active_player) {
+// if (receive_value.data.player.direction == DOWN) {
+// played_token = gp4_play_token();
+// compute_message(&send_value, &played_token);
+// send_message(QUEUE_SEND, &send_value, SIZEOFMESSAGE);
+// played_token=gp4_next_player();
+// if (active_player == PLAYER_1) {
+// send_value.data.token.color = PLAYER_COLOR_1;
+// }
+// else if (active_player == PLAYER_2) {
+// send_value.data.token.color = PLAYER_COLOR_2;
+// }
+// }
+// if (receive_value.data.player.direction== RIGHT) {
+// played_token = gp4_move_right();
+// }
+// if (receive_value.data.player.direction == LEFT) {
+// played_token = gp4_move_left();
+// }
+// }
+// if (active_player == 0) {
+// gp4_init();
+// gp4_display();
+// active_player = PLAYER_1;
+// played_token.beg_position.c = 0;
+// played_token.beg_position.l = 0;
+// played_token.end_position.l = 0;
+// played_token.end_position.c = 3;
+// send_value.data.token.color = PLAYER_COLOR_1;
+// }
+// gp4_display();
+// compute_message(&send_value, &played_token);
+// send_message(QUEUE_SEND, &send_value, SIZEOFMESSAGE);
+// }
+//
+// }
+// }
+// }
+// */
