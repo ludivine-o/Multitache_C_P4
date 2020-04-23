@@ -33,13 +33,6 @@ void start_timer (int8_t timer_id, int8_t countdown, Owner owner){
 	pthread_mutex_lock(&mutex_timer);
 }
 
-//Fonction pour arreter un timer
-void stop_timer (int8_t timer_id){
-	pthread_mutex_lock(&mutex_timer);
-	timers_table[timer_id].status = START;
-	pthread_mutex_lock(&mutex_timer);
-}
-
 
 //thread qui gère l'incrémentation des timers :
 void *timers(void*arg){

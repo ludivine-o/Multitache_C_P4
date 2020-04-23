@@ -2,12 +2,15 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="left_di" key="selection"/>
+		<item value="Affichage de la matrice complete" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="Affichage de la matrice complete"/>
+			<item value="Blue"/>
+			<item value="bool"/>
 			<item value="left_di"/>
 			<item value="color"/>
 			<item value="init"/>

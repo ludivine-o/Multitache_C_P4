@@ -10,9 +10,14 @@
 	<section name="org.eclipse.cdt.ui.text.hover.CMacroExpansionExploration">
 	</section>
 	<section name="PDOMSearchPage">
-		<item value="false" key="caseSensitive"/>
+		<item value="true" key="caseSensitive"/>
 		<item value="227191" key="searchFlags"/>
 		<list key="previousPatterns">
+			<item value="Blue"/>
+			<item value="debug?"/>
+			<item value="debug"/>
+			<item value="Affichage"/>
+			<item value="Affichagedelamatrice"/>
 			<item value="start_pos"/>
 			<item value="left_diag"/>
 			<item value="g_matrix"/>

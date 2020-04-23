@@ -1,7 +1,6 @@
-16:38:08 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+17:18:49 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
 make -j4 all 
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
-gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/main.o ./src/read.o ./src/timers.o   -lpthread
+make: Nothing to be done for 'all'.
 
-16:38:08 Build Finished (took 623ms)
+17:18:50 Build Finished (took 474ms)
 
