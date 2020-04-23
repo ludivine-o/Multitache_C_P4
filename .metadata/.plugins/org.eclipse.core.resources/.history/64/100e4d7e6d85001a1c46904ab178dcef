@@ -11,8 +11,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define COL_COUNT 7		//il y a 7 colonnes (de 0 à 6)
-#define LINE_COUNT 6	//il y a 6 lignes (de 0 à 5)
+#define COL_COUNT 7		//il y a 7 colonnes (de 1 à 7)
+#define LINE_COUNT 6	//il y a 6 lignes (de 1 à 6)
 #define START_POSITION 3
 
 #define color_P1 Yellow

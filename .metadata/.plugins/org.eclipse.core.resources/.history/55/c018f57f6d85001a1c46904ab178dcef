@@ -13,7 +13,7 @@
 #include"app.h"
 #include "__debug.h"
 
-static int8_t g_token_top_selector = 0;
+static int8_t g_token_top_selector = 1;
 static int8_t active_player = NO_PLAYER;
 static int8_t g_matrix[COL_COUNT][LINE_COUNT];
 static bool game = false;
@@ -24,7 +24,7 @@ Color Black = { 0, 0, 0 }, Blue = { 0, 0, 255 }, Red = { 255, 0, 0 }, White = {
 
 void top_line_display(void) {
 	printf("TOP =   ");
-	for (int i_top = 0; i_top < COL_COUNT; i_top++) {
+	for (int i_top = 1; i_top <= COL_COUNT; i_top++) {
 		if (i_top != g_token_top_selector) {
 			printf(" 0 ");
 		} else {
@@ -51,13 +51,13 @@ void gp4_show_board(void) {
 }
 
 bool is_col_empty(int col) {
-	if (col < 0) {
+	if (col < 1) {
 		return false;
 	}
-	if (col >= COL_COUNT) {
+	if (col > COL_COUNT) {
 		return false;
 	}
-	if (g_matrix[col][0] == 0) {
+	if (g_matrix[col - 1][0] == 0) {
 		return true;
 	}
 	return false;
@@ -85,51 +85,48 @@ pos_token_t gp4_move_right_test(void) {
 	int direction = +1;
 	int destination;
 	pos_token_t return_moved_token;
-	return_moved_token.beg_position.c = g_token_top_selector;
+	return_moved_token.beg_position.c = g_token_top_selector - 1;
 	return_moved_token.beg_position.l = 0;
 	return_moved_token.end_position.l = 0;
 	destination = g_token_top_selector + direction;
 	while (1) {
-		if (destination >= COL_COUNT) {
-			destination = 0;
+		if (destination > COL_COUNT) {
+			destination = 1;
 		}
 		if (is_col_empty(destination) == true) {
 			g_token_top_selector = destination;
-			return_moved_token.end_position.c = g_token_top_selector;
+			return_moved_token.end_position.c = g_token_top_selector - 1;
 			return_moved_token.is_ok = true;
 			return return_moved_token;
 		}
 		destination++;
 	}
-	//TODO : verifier si toutes colonnes sont pleines = while infini
 }
 
 pos_token_t gp4_move_left_test(void) {
 	int direction = -1;
+	int destination;
 	pos_token_t return_moved_token;
-	return_moved_token.beg_position.c = g_token_top_selector;
+	return_moved_token.beg_position.c = g_token_top_selector - 1;
 	return_moved_token.beg_position.l = 0;
 	return_moved_token.end_position.l = 0;
-	int destination = g_token_top_selector + direction;
+	destination = g_token_top_selector + direction;
 	while (1) {
-		if (destination < 0) {
-			destination = 6;
+		if (destination < 1) {
+			destination = 7;
 		}
 		if (is_col_empty(destination) == true) {
 			g_token_top_selector = destination;
-			return_moved_token.end_position.c = destination;
+			return_moved_token.end_position.c = destination - 1;
 			return_moved_token.is_ok = true;
 			return return_moved_token;
 		}
 		destination--;
 	}
-	//TODO : verifier si toutes colonnes sont pleines = while infini
 }
 
-//TODO : faire une fonction mixte (qui prend en parma un enum left = -1, right = +1)
-
 pos_token_t gp4_play_token(void) {
-	int column = g_token_top_selector;
+	int column = g_token_top_selector - 1;
 	int line = 5;	//ou LINE_COUNT-1
 	while (g_matrix[column][line] != 0) {
 		line--;
@@ -295,6 +292,8 @@ static winner_t gp4_check_status(void) {
 //}
 
 pos_token_t gp4_next_playerV2(void) {
+
+
 	pos_token_t pos_token_top = { 0 };
 	pos_token_top.end_position.l = 0;
 

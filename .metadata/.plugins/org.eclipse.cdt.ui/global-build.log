@@ -165,3 +165,51 @@ gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/a
 15:57:08 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
 make -j4 all 
 make: Nothing to be done for 'all'.
+16:19:56 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/__leds_control.d" -MT"src/__leds_control.o" -o "src/__leds_control.o" "../src/__leds_control.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/display.d" -MT"src/display.o" -o "src/display.o" "../src/display.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/fifo.d" -MT"src/fifo.o" -o "src/fifo.o" "../src/fifo.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/read.d" -MT"src/read.o" -o "src/read.o" "../src/read.c"
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/timers.d" -MT"src/timers.o" -o "src/timers.o" "../src/timers.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/main.o ./src/read.o ./src/timers.o   -lpthread
+16:20:03 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+16:22:35 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/main.o ./src/read.o ./src/timers.o   -lpthread
+16:22:37 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+16:23:08 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/main.o ./src/read.o ./src/timers.o   -lpthread
+16:23:10 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+16:24:25 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+16:31:47 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/main.o ./src/read.o ./src/timers.o   -lpthread
+16:32:04 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+16:35:13 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+16:37:45 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/main.o ./src/read.o ./src/timers.o   -lpthread
+16:38:08 **** Incremental Build of configuration Debug for project moteur_jeux_multitache ****
+make -j4 all 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/app.d" -MT"src/app.o" -o "src/app.o" "../src/app.c"
+gcc  -o "moteur_jeux_multitache"  ./src/__debug.o ./src/__leds_control.o ./src/app.o ./src/display.o ./src/fifo.o ./src/main.o ./src/read.o ./src/timers.o   -lpthread

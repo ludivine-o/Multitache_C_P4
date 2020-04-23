@@ -51,13 +51,13 @@ void gp4_show_board(void) {
 }
 
 bool is_col_empty(int col) {
-	if (col < 0) {
+	if (col < 1) {
 		return false;
 	}
-	if (col >= COL_COUNT) {
+	if (col > COL_COUNT) {
 		return false;
 	}
-	if (g_matrix[col][0] == 0) {
+	if (g_matrix[col - 1][0] == 0) {
 		return true;
 	}
 	return false;
@@ -90,7 +90,7 @@ pos_token_t gp4_move_right_test(void) {
 	return_moved_token.end_position.l = 0;
 	destination = g_token_top_selector + direction;
 	while (1) {
-		if (destination >= COL_COUNT) {
+		if (destination > COL_COUNT) {
 			destination = 0;
 		}
 		if (is_col_empty(destination) == true) {

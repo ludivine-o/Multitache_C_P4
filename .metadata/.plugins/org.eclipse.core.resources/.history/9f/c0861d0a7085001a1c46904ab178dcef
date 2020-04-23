@@ -54,10 +54,10 @@ bool is_col_empty(int col) {
 	if (col < 0) {
 		return false;
 	}
-	if (col >= COL_COUNT) {
+	if (col > COL_COUNT) {
 		return false;
 	}
-	if (g_matrix[col][0] == 0) {
+	if (g_matrix[col - 1][0] == 0) {
 		return true;
 	}
 	return false;
