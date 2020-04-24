@@ -1,0 +1,29 @@
+/*
+ * thread.c
+ *
+ *  Created on: Apr 24, 2020
+ *      Author: ludivineo
+ */
+
+
+
+#include "local_leds.h"
+#include "cmsis_os2.h"
+
+void thread_red_led (void * arg){
+	while(1){
+		LedRedOn();
+		osDelay(400);
+		LedRedOff();
+		osDelay(400);
+	}
+}
+
+void thread_green_led (void*arg){
+
+}
+
+
+
+
+

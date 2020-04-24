@@ -1,0 +1,20 @@
+/*
+ * thread.c
+ *
+ *  Created on: Apr 24, 2020
+ *      Author: ludivineo
+ */
+
+
+
+void thread_led (void * arg){
+	const osThreadAttr_t thread_led_attributes = {
+
+	};
+
+
+}
+
+
+
+

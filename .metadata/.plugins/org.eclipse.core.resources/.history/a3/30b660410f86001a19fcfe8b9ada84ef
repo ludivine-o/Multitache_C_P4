@@ -1,0 +1,22 @@
+/*
+ * thread.c
+ *
+ *  Created on: Apr 24, 2020
+ *      Author: ludivineo
+ */
+
+#include <unistd.h>
+
+#include "local_leds.h"
+
+void thread_led (void * arg){
+	while(1){
+		LedRedOn();
+		usleep(400);
+		LedRedOff();
+	}
+}
+
+
+
+

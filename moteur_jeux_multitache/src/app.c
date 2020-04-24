@@ -22,7 +22,7 @@ Color Black = { 0, 0, 0 }, Blue = { 0, 0, 255 }, Red = { 255, 0, 0 }, White = {
 		255, 255, 255 }, Purple = { 255, 0, 255 }, Yellow = { 255, 255, 0 },
 		Green = { 0, 255, 0 };
 
-void top_line_display(void) {
+static void top_line_display(void) {
 	printf("TOP =   ");
 	for (int i_top = 0; i_top < COL_COUNT; i_top++) {
 		if (i_top != g_token_top_selector) {
@@ -33,7 +33,7 @@ void top_line_display(void) {
 	}
 	printf("\n\n");
 }
-void matrix_lines_display(void) {
+static void matrix_lines_display(void) {
 	for (int line = 0; line < LINE_COUNT; line++) {
 		printf("Line %d  ", (line + 1));
 		for (int col = 0; col < COL_COUNT; col++) {
@@ -43,7 +43,7 @@ void matrix_lines_display(void) {
 	}
 }
 
-void gp4_show_board(void) {
+static void gp4_show_board(void) {
 	debug_printf(1, "Affichage de la matrice complete\n");
 	top_line_display();
 	matrix_lines_display();
@@ -63,7 +63,7 @@ bool is_col_empty(int col) {
 	return false;
 }
 
-data_msg gp4_init(void) {
+static data_msg gp4_init(void) {
 	int row, col;
 	data_msg instructions_to_send;
 	active_player = PLAYER_1;
@@ -81,7 +81,7 @@ data_msg gp4_init(void) {
 	return instructions_to_send;
 }
 
-pos_token_t gp4_move_right_test(void) {
+static pos_token_t gp4_move_right_test(void) {
 	int direction = +1;
 	int destination;
 	pos_token_t return_moved_token;
@@ -101,10 +101,10 @@ pos_token_t gp4_move_right_test(void) {
 		}
 		destination++;
 	}
-	//TODO : verifier si toutes colonnes sont pleines = while infini
+	//TO FIX : attention risque de while infini
 }
 
-pos_token_t gp4_move_left_test(void) {
+static pos_token_t gp4_move_left_test(void) {
 	int direction = -1;
 	pos_token_t return_moved_token;
 	return_moved_token.beg_position.c = g_token_top_selector;
@@ -123,12 +123,12 @@ pos_token_t gp4_move_left_test(void) {
 		}
 		destination--;
 	}
-	//TODO : verifier si toutes colonnes sont pleines = while infini
+	//TO FIX : attention risque de while infini
 }
 
 //TODO : faire une fonction mixte (qui prend en parma un enum left = -1, right = +1)
 
-pos_token_t gp4_play_token(void) {
+static pos_token_t gp4_play_token(void) {
 	int column = g_token_top_selector;
 	int line = 5;	//ou LINE_COUNT-1
 	while (g_matrix[column][line] != 0) {
@@ -144,7 +144,7 @@ pos_token_t gp4_play_token(void) {
 	return return_played_token;
 }
 
-winner_t gp4_check_win_vertical(void) {
+static winner_t gp4_check_win_vertical(void) {
 	winner_t game_status = { .status = live };
 	for (int line = 0; line < 7; line++) {
 		for (int col = 0; col < 4; col++) {
@@ -168,7 +168,7 @@ winner_t gp4_check_win_vertical(void) {
 	return game_status;
 }
 
-winner_t gp4_check_win_horizontal(void) {
+static winner_t gp4_check_win_horizontal(void) {
 	winner_t game_status = { .status = live };
 	for (int col = 0; col < 7; col++) {
 		for (int line = 0; line < 3; line++) {
@@ -194,7 +194,7 @@ winner_t gp4_check_win_horizontal(void) {
 	return game_status;
 }
 
-winner_t gp4_check_win_rightdiag(void) {
+static winner_t gp4_check_win_rightdiag(void) {
 	winner_t game_status;
 	game_status.status = live;
 	int col, line;
@@ -222,7 +222,7 @@ winner_t gp4_check_win_rightdiag(void) {
 	return game_status;
 }
 
-winner_t gp4_check_win_leftdiag(void) {
+static winner_t gp4_check_win_leftdiag(void) {
 	winner_t game_status;
 	game_status.status = live;
 	int col, line;
@@ -251,7 +251,7 @@ winner_t gp4_check_win_leftdiag(void) {
 	return game_status;
 }
 
-winner_t gp4_check_equal(void) {
+static winner_t gp4_check_equal(void) {
 	winner_t game_status = { .status = live };
 	int compteur = 0;
 	for (int col = 0; col < 7; col++) {
@@ -283,18 +283,8 @@ static winner_t gp4_check_status(void) {
 	return game_status;
 }
 
-//static void gp4_next_player(void) {
-//	debug_printf(1, "changement de joueur\n");
-//	if (active_player == 1) {
-//		active_player = 2;
-//	} else {
-//		active_player = 1;
-//	}
-//	//TODO :placer le token sur une colonne dispo
-//	g_token_top_selector = START_POSITION;
-//}
 
-pos_token_t gp4_next_playerV2(void) {
+static  pos_token_t gp4_next_playerV2(void) {
 	pos_token_t pos_token_top = { 0 };
 	pos_token_top.end_position.l = 0;
 
@@ -322,7 +312,7 @@ pos_token_t gp4_next_playerV2(void) {
 	return pos_token_top;
 }
 
-data_msg write_msg_to_send(pos_token_t played_token) {
+static data_msg write_msg_to_send(pos_token_t played_token) {
 	data_msg instructions_to_send = { 0 };
 	instructions_to_send.type = MSG_MOVE_TOKEN;
 	instructions_to_send.params.move_token.positions = played_token;
@@ -340,42 +330,56 @@ static inline void SendNewTokenToDisplay(pos_token_t played_token) {
 	SendMessage(LIST_DISPLAY, &instructions_to_send, sizeof(data_msg));
 }
 
-void instructions_MSG_PLAYER(data_msg received_instructions) {
+static void instructions_MSG_PLAYER(data_msg received_instructions) {
 	winner_t game_status = { 0 };
 	pos_token_t played_token = { 0 };
 	//---------------------------------------------si partie en cours--------------------------------//
 	if (received_instructions.params.player.player == active_player) {
 		debug_printf(1, "app()entrée dans le coeur de jeu\n");
 		if (received_instructions.params.player.direction == LEFT) {
+			//stop_timer(ROUND_TIMER);
 			played_token = gp4_move_left_test();
 		}
 		if (received_instructions.params.player.direction == RIGHT) {
+			//stop_timer(ROUND_TIMER);
 			played_token = gp4_move_right_test();
 		}
 		if (received_instructions.params.player.direction == DOWN) {
+			//stop_timer(ROUND_TIMER);
 			played_token = gp4_play_token();
 			SendNewTokenToDisplay(played_token);
 			game_status = gp4_check_status();
 			if (game_status.status == live) {
 				played_token = gp4_next_playerV2();
-			}
+							}
 		}
 		SendNewTokenToDisplay(played_token);
 		gp4_show_board();
 	}
 	//------------------------------------------si pas de partie en cours---------------------------//
 	if (active_player == NO_PLAYER) {
-		//game = true;
 		data_msg instructions_to_send = gp4_init();
-		debug_printf(1, "app()game = %d, player = %d\n", game, active_player);
+		debug_printf(1, "player = %d\n", active_player);
 		SendMessage(LIST_DISPLAY, &instructions_to_send, sizeof(data_msg));
 		gp4_show_board();
 	}
 }
 
-void instructions_MSG_TIMER(data_msg received_instructions) {
+//----------------------------si fin du timer (le joueur n'a pas joué)-------------------------//
+//void instructions_MSG_TIMER(data_msg received_instructions) {
+//	pos_token_t played_token = { 0 };
+//	if (received_instructions.params.timer_id == ROUND_TIMER){
+//		played_token = gp4_play_token();
+//		SendNewTokenToDisplay(played_token);
+//		game_status = gp4_check_status();
+//		if (game_status.status == live) {
+//			played_token = gp4_next_playerV2();
+//						}
+//	}
+//	SendNewTokenToDisplay(played_token);
+//	gp4_show_board();
+//}
 
-}
 
 void * applicationV2(void*arg) {
 	debug_pr_fn(1, "app()entrée dans thread app\n");
@@ -383,11 +387,15 @@ void * applicationV2(void*arg) {
 	pos_token_t played_token = { 0 };
 	winner_t game_status = { 0 };
 	while (1) {
+
+		//---------------------------------------------rlancement des timers (Round timer + idle timer) --------------------------------------//
+		//start_timer(ROUND_TIMER, 150, Thrd_APP); 	//15 secondes ?
+		//start_timer(IDLE_TIMER, 50, Thrd_APP);	//5 secondes ?
+
 		//---------------------------------------------reception msg fifo--------------------------------------//
 		data_msg received_instructions = INIT_DATA_MSG;
 		debug_printf(1, "app()entrée dans while thread app\n");
-		receive_status = ReceiveMessage(LIST_READ, &received_instructions,
-				sizeof(data_msg));
+		receive_status = ReceiveMessage(LIST_READ, &received_instructions, sizeof(data_msg));
 		debug_printf(1, "app()receive msg status : %d\n", receive_status);
 		if (receive_status == 1) {
 			//-------------------------------------si saisie clavier (fleche simu)------------------------------//
@@ -396,7 +404,7 @@ void * applicationV2(void*arg) {
 			}
 			//-------------------------------------si retour du timer-------------------------------------------//
 			if (received_instructions.type == MSG_TIMER) {
-					//TODO ecrire une fonction qui gère le retour du timer dans la fifo
+				instructions_MSG_TIMER(received_instructions);
 			}
 
 		}
