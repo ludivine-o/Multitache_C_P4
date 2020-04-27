@@ -173,6 +173,26 @@ void SetLedMatrix(void) {
 	is_matrix_init = 1;
 }
 
+void SetAllBlack(){
+	for (int row = 0; row < 7; row++) {
+		for (int col = 0; col < 7; col++) {
+			matrix[row][col].RValue = Black.RValue;
+			matrix[row][col].GValue = Black.GValue;
+			matrix[row][col].BValue = Black.BValue;
+		}
+	}
+}
+
+void SetAllWhite(){
+	for (int row = 0; row < 7; row++) {
+		for (int col = 0; col < 7; col++) {
+			matrix[row][col].RValue = White.RValue;
+			matrix[row][col].GValue = White.GValue;
+			matrix[row][col].BValue = White.BValue;
+		}
+	}
+}
+
 void *display(void*arg) {
 	debug_pr_fn(1, "display()entrée dans thread display\n");
 	data_msg request;
@@ -191,6 +211,14 @@ void *display(void*arg) {
 				SetLedMatrix();
 				debug_printf(1, "display()SetLedColor = OK\n");
 			}
+			if (request.type == MSG_DISPLAY_OFF) {
+				SetAllBlack();
+				SetLedMatrix();
+			}
+//			if (request.type == MSG_VICTORY) {
+//				SetAllWhite();
+//				SetLedMatrix();
+//			}
 		}
 	}
 	pthread_exit(NULL);

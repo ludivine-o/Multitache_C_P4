@@ -46,13 +46,15 @@ void thread_green_led(void*arg) {
 			LedGreenOff();
 			osDelay(100);
 		}
-		osMessageQueuePut(sendToLog, &msg, 0, 0);
+		osMessageQueuePut(sendToLog, &msg, 0, osWaitForever);
 	}
 }
 
 void thread_logger(void*arg) {
 	char msg [12];
-	osMessageQueueGet(sendToLog, &msg, NULL, osWaitForever);
-	SendToSerialTask(msg);
+	while(1){
+		osMessageQueueGet(sendToLog, &msg, NULL, osWaitForever);
+		sendToSerial(msg,sizeof(msg));
+	}
 }
 

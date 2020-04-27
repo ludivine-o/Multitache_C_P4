@@ -10,7 +10,8 @@
 #include<stdbool.h>
 
 #include "fifo.h"
-#include"app.h"
+#include "app.h"
+#include "timers.h"
 #include "__debug.h"
 
 static int8_t g_token_top_selector = 0;
@@ -75,7 +76,7 @@ static data_msg gp4_init(void) {
 	}
 	instructions_to_send.type = MSG_MOVE_TOKEN;
 	instructions_to_send.params.move_token.positions.end_position.c =
-	START_POSITION;
+			START_POSITION;
 	instructions_to_send.params.move_token.positions.end_position.l = 0;
 	instructions_to_send.params.move_token.color = color_P1;
 	return instructions_to_send;
@@ -147,7 +148,8 @@ static pos_token_t gp4_play_token(void) {
 static winner_t gp4_check_win_vertical(void) {
 	winner_t game_status = { .status = live };
 	for (int line = 0; line < 7; line++) {
-		for (int col = 0; col < 4; col++) {
+		for (int col = 0; col < 7; col++) {
+			//for (int col = 0; col < 4; col++) {
 			if ((g_matrix[line][col] == g_matrix[line][col + 1])
 					&& (g_matrix[line][col] == g_matrix[line][col + 2])
 					&& (g_matrix[line][col] == g_matrix[line][col + 3])
@@ -171,7 +173,8 @@ static winner_t gp4_check_win_vertical(void) {
 static winner_t gp4_check_win_horizontal(void) {
 	winner_t game_status = { .status = live };
 	for (int col = 0; col < 7; col++) {
-		for (int line = 0; line < 3; line++) {
+		for (int line = 0; line < 7; line++) {
+			//for (int line = 0; line < 3; line++) {
 			if (g_matrix[line][col] == g_matrix[line + 1][col]) {
 				if (g_matrix[line][col] == g_matrix[line + 2][col]) {
 					if (g_matrix[line][col] == g_matrix[line + 3][col]) {
@@ -198,14 +201,17 @@ static winner_t gp4_check_win_rightdiag(void) {
 	winner_t game_status;
 	game_status.status = live;
 	int col, line;
-	for (line = 0; line < 3; line++) {
-		for (col = 0; col < 4; col++) {
+	//for (line = 0; line < 3; line++) {
+	for (col = 0; col < 7; col++) {
+		for (line = 0; line < 7; line++) {
+			//for (col = 0; col < 4; col++) {
 			if (g_matrix[line][col] == g_matrix[line + 1][col + 1]) {
 				if (g_matrix[line][col] == g_matrix[line + 2][col + 2]) {
 					if (g_matrix[line][col] == g_matrix[line + 3][col + 3]) {
 						if (g_matrix[line][col] != 0) {
 							game_status.status = stop_winner;
 							game_status.win_type = right_diag;
+							printf("victoire = diag droite\n");
 							if (g_matrix[line][col] == 1) {
 								game_status.win_player = PLAYER_1;
 								return game_status;
@@ -226,8 +232,10 @@ static winner_t gp4_check_win_leftdiag(void) {
 	winner_t game_status;
 	game_status.status = live;
 	int col, line;
-	for (col = 3; col < 7; col++) {
-		for (line = 0; line < 3; line++) {
+	//for (col = 3; col < 7; col++) {
+	for (col = 0; col < 7; col++) {
+		//for (line = 0; line < 3; line++) {
+		for (line = 0; line < 7; line++) {
 			if (g_matrix[line][col] == g_matrix[line - 1][col - 1]) {
 				if (g_matrix[line][col] == g_matrix[line - 2][col - 2]) {
 					if (g_matrix[line][col] == g_matrix[line - 3][col - 3]) {
@@ -283,8 +291,7 @@ static winner_t gp4_check_status(void) {
 	return game_status;
 }
 
-
-static  pos_token_t gp4_next_playerV2(void) {
+static pos_token_t gp4_next_playerV2(void) {
 	pos_token_t pos_token_top = { 0 };
 	pos_token_top.end_position.l = 0;
 
@@ -334,24 +341,33 @@ static void instructions_MSG_PLAYER(data_msg received_instructions) {
 	winner_t game_status = { 0 };
 	pos_token_t played_token = { 0 };
 	//---------------------------------------------si partie en cours--------------------------------//
-	if (received_instructions.params.player.player == active_player) {
+	if (received_instructions.params.player.player
+			== active_player&& game == true) {
 		debug_printf(1, "app()entrée dans le coeur de jeu\n");
+		stop_timer(IDLE_TIMER);
 		if (received_instructions.params.player.direction == LEFT) {
-			//stop_timer(ROUND_TIMER);
 			played_token = gp4_move_left_test();
+			start_timer(IDLE_TIMER, 5, Thrd_APP);
 		}
 		if (received_instructions.params.player.direction == RIGHT) {
-			//stop_timer(ROUND_TIMER);
 			played_token = gp4_move_right_test();
+			start_timer(IDLE_TIMER, 5, Thrd_APP);
 		}
 		if (received_instructions.params.player.direction == DOWN) {
-			//stop_timer(ROUND_TIMER);
+			stop_timer(ROUND_TIMER);
 			played_token = gp4_play_token();
 			SendNewTokenToDisplay(played_token);
 			game_status = gp4_check_status();
 			if (game_status.status == live) {
 				played_token = gp4_next_playerV2();
-							}
+				start_timer(ROUND_TIMER, 15, Thrd_APP);
+				start_timer(IDLE_TIMER, 5, Thrd_APP);
+			}
+			if (game_status.status == stop_winner) {
+				game = 0;
+				stop_timer(ROUND_TIMER);
+				stop_timer(IDLE_TIMER);
+			}
 		}
 		SendNewTokenToDisplay(played_token);
 		gp4_show_board();
@@ -359,27 +375,47 @@ static void instructions_MSG_PLAYER(data_msg received_instructions) {
 	//------------------------------------------si pas de partie en cours---------------------------//
 	if (active_player == NO_PLAYER) {
 		data_msg instructions_to_send = gp4_init();
+		game = 1;
 		debug_printf(1, "player = %d\n", active_player);
 		SendMessage(LIST_DISPLAY, &instructions_to_send, sizeof(data_msg));
 		gp4_show_board();
+		//-----------------------lancement des timers (Round timer + idle timer) --------//
+		start_timer(ROUND_TIMER, 15, Thrd_APP); 	//15 secondes ?
+		start_timer(IDLE_TIMER, 5, Thrd_APP);		//5 secondes ?
+	}
+	//------------------------------------------si partie finie---------------------------//
+	if (active_player != NO_PLAYER && game == false) {
+		data_msg instructions_to_send;
+//		//--------------------------------victory blink-----------------------------------//
+//		if (game_status.status == stop_winner){
+//			instructions_to_send.type = MSG_VICTORY;
+//			instructions_to_send.params.victory = game_status;
+//			SendMessage(LIST_DISPLAY, &instructions_to_send, sizeof(data_msg));
+//		}
+		//--------------------------------Arret du jeu-----------------------------------//
+		instructions_to_send.type = MSG_DISPLAY_OFF;
+		SendMessage(LIST_DISPLAY, &instructions_to_send, sizeof(data_msg));
+		active_player = NO_PLAYER;
 	}
 }
 
-//----------------------------si fin du timer (le joueur n'a pas joué)-------------------------//
-//void instructions_MSG_TIMER(data_msg received_instructions) {
-//	pos_token_t played_token = { 0 };
-//	if (received_instructions.params.timer_id == ROUND_TIMER){
-//		played_token = gp4_play_token();
-//		SendNewTokenToDisplay(played_token);
-//		game_status = gp4_check_status();
-//		if (game_status.status == live) {
-//			played_token = gp4_next_playerV2();
-//						}
-//	}
-//	SendNewTokenToDisplay(played_token);
-//	gp4_show_board();
-//}
-
+//----------------------------si fin d'un timer-------------------------//
+void instructions_MSG_TIMER(data_msg received_instructions) {
+	pos_token_t played_token = { 0 };
+	if (received_instructions.params.timer_id == ROUND_TIMER
+			|| received_instructions.params.timer_id == IDLE_TIMER) {
+		played_token = gp4_play_token();
+		SendNewTokenToDisplay(played_token);
+		winner_t game_status = gp4_check_status();
+		if (game_status.status == live) {
+			played_token = gp4_next_playerV2();
+			start_timer(IDLE_TIMER, 5, Thrd_APP);
+			start_timer(ROUND_TIMER, 15, Thrd_APP);
+		}
+	}
+	SendNewTokenToDisplay(played_token);
+	gp4_show_board();
+}
 
 void * applicationV2(void*arg) {
 	debug_pr_fn(1, "app()entrée dans thread app\n");
@@ -388,25 +424,22 @@ void * applicationV2(void*arg) {
 	winner_t game_status = { 0 };
 	while (1) {
 
-		//---------------------------------------------rlancement des timers (Round timer + idle timer) --------------------------------------//
-		//start_timer(ROUND_TIMER, 150, Thrd_APP); 	//15 secondes ?
-		//start_timer(IDLE_TIMER, 50, Thrd_APP);	//5 secondes ?
-
 		//---------------------------------------------reception msg fifo--------------------------------------//
 		data_msg received_instructions = INIT_DATA_MSG;
 		debug_printf(1, "app()entrée dans while thread app\n");
-		receive_status = ReceiveMessage(LIST_READ, &received_instructions, sizeof(data_msg));
+		receive_status = ReceiveMessage(LIST_READ, &received_instructions,
+				sizeof(data_msg));
 		debug_printf(1, "app()receive msg status : %d\n", receive_status);
 		if (receive_status == 1) {
 			//-------------------------------------si saisie clavier (fleche simu)------------------------------//
 			if (received_instructions.type == MSG_PLAYER) {
 				instructions_MSG_PLAYER(received_instructions);
+
 			}
 			//-------------------------------------si retour du timer-------------------------------------------//
 			if (received_instructions.type == MSG_TIMER) {
 				instructions_MSG_TIMER(received_instructions);
 			}
-
 		}
 	}
 }

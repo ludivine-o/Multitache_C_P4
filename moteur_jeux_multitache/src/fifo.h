@@ -23,7 +23,9 @@ typedef enum {
 	MSG_NONE,
 	MSG_PLAYER,
 	MSG_MOVE_TOKEN,
-	MSG_TIMER
+	MSG_TIMER,
+	MSG_DISPLAY_OFF,
+	MSG_VICTORY,
 } MessageType;
 
 typedef struct {
@@ -39,6 +41,7 @@ typedef struct data_msg {
 		move_token_t move_token;	//(MSG_MOVE_TOKEN) app -> display
 		char value[10];				//
 		int timer_id; 				//(MSG_TIMER) timer -> thread
+		winner_t victory;			//(MSG_VICTORY app --> display
 	} params;
 }data_msg;
 

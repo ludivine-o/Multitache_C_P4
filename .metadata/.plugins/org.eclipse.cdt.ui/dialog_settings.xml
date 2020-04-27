@@ -7,12 +7,20 @@
 		<item value="600" key="width"/>
 		<item value="400" key="height"/>
 	</section>
+	<section name="org.eclipse.cdt.ui.OPEN_ACTION_SELECTION_DIALOG_SECTION">
+		<item value="388" key="DIALOG_WIDTH"/>
+		<item value="1|Ubuntu|10.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+		<item value="479" key="DIALOG_HEIGHT"/>
+		<item value="769" key="DIALOG_X_ORIGIN"/>
+		<item value="223" key="DIALOG_Y_ORIGIN"/>
+	</section>
 	<section name="org.eclipse.cdt.ui.text.hover.CMacroExpansionExploration">
 	</section>
 	<section name="PDOMSearchPage">
 		<item value="true" key="caseSensitive"/>
 		<item value="227191" key="searchFlags"/>
 		<list key="previousPatterns">
+			<item value="trigger"/>
 			<item value="Blue"/>
 			<item value="debug?"/>
 			<item value="debug"/>

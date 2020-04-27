@@ -13,31 +13,32 @@
 #include "fifo.h"
 
 
-typedef struct {
-	Status status;
-	int8_t countdown;
-	Owner owner;
-}Timer;
+
 
 
 pthread_mutex_t mutex_timer = PTHREAD_MUTEX_INITIALIZER;
 
 Timer timers_table [TIMER_MAX];
 
+
 //Fonction pour lancer un timer
 void start_timer (int8_t timer_id, int8_t countdown, Owner owner){
-	pthread_mutex_lock(&mutex_timer);
-	timers_table[timer_id].countdown = countdown;
-	timers_table[timer_id].owner = owner;
-	timers_table[timer_id].status = START;
-	pthread_mutex_lock(&mutex_timer);
+	if (timer_id <= TIMER_MAX){
+		pthread_mutex_lock(&mutex_timer);
+		timers_table[timer_id].countdown = countdown;
+		timers_table[timer_id].owner = owner;
+		timers_table[timer_id].status = START;
+		pthread_mutex_unlock(&mutex_timer);
+	}
 }
 
 //Fonction pour arreter un timer
 void stop_timer (int8_t timer_id){
-	pthread_mutex_lock(&mutex_timer);
-	timers_table[timer_id].status = START;
-	pthread_mutex_lock(&mutex_timer);
+	if (timer_id <= TIMER_MAX){
+		pthread_mutex_lock(&mutex_timer);
+		timers_table[timer_id].status = STOP;
+		pthread_mutex_unlock(&mutex_timer);
+	}
 }
 
 
@@ -46,11 +47,10 @@ void *timers(void*arg){
 	data_msg msg_to_send;
 	while(1){
 		pthread_mutex_lock(&mutex_timer);
-		for (int i=0; i>TIMER_MAX; i++){
+		for (int i=0; i<TIMER_MAX; i++){
 			if (timers_table[i].status == START){
-				timers_table[i].countdown -= 1;
 				if (timers_table[i].countdown == 0){
-					msg_to_send.type = trigger_TIMER;
+					msg_to_send.type = MSG_TIMER;
 					msg_to_send.params.timer_id = i;			//timer id
 					if (timers_table[i].owner == Thrd_APP){
 						SendMessage(LIST_READ, &msg_to_send, sizeof(data_msg));
@@ -60,10 +60,13 @@ void *timers(void*arg){
 					}
 					timers_table[i].status = STOP;
 				}
+				else{
+					timers_table[i].countdown -= 1;
+				}
 			}
 		}
-		pthread_mutex_lock(&mutex_timer);
-		usleep(1000);
+		pthread_mutex_unlock(&mutex_timer);
+		usleep(1000000);
 	}
 }
 

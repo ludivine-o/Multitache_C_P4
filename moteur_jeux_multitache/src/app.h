@@ -30,11 +30,11 @@ typedef struct {
 
 extern Color Black, Red, Green, Blue, White, Purple, Yellow;
 
-typedef enum {
-	input_KEY,
-	output_LED,
-	trigger_TIMER,
-}cmd_t;
+//typedef enum {
+//	input_KEY,
+//	output_LED,
+//	trigger_TIMER,
+//}cmd_t;
 
 
 typedef enum {

@@ -2,18 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="Affichage de la matrice complete" key="selection"/>
+		<item value="Serial" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="/*"/>
+			<item value="serial"/>
+			<item value="send"/>
+			<item value="Forever"/>
 			<item value="Affichage de la matrice complete"/>
 			<item value="Blue"/>
 			<item value="bool"/>
 			<item value="left_di"/>
-			<item value="color"/>
-			<item value="init"/>
 		</list>
 		<list key="replacehistory">
 		</list>
@@ -22,7 +24,7 @@
 		<item value="339" key="DIALOG_WIDTH"/>
 		<item value="1|Ubuntu|10.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 		<item value="438" key="DIALOG_HEIGHT"/>
-		<item value="1057" key="DIALOG_X_ORIGIN"/>
-		<item value="200" key="DIALOG_Y_ORIGIN"/>
+		<item value="1200" key="DIALOG_X_ORIGIN"/>
+		<item value="191" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

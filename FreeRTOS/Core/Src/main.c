@@ -122,7 +122,7 @@ int main(void)
 	osThreadNew(&thread_red_led, NULL, NULL);
 	osThreadNew(&thread_blue_led, NULL, NULL);
 	osThreadNew(&thread_green_led, NULL, NULL);
-
+	osThreadNew(&thread_logger, NULL, NULL);
 
 	/* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */
 	/* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */
